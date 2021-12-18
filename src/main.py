@@ -1,52 +1,37 @@
 from kivy.lang import Builder
+from kivy.uix.screenmanager import Screen
+from kivymd.uix.label import MDLabel
 
 from kivymd.app import MDApp
 
+import util
 
-class Test(MDApp):
+
+Builder.load_file('views/main.kv')
+
+class MainScreen(Screen):
+
+    def test():
+        pass
+
+class MainApp(MDApp):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.screen = MainScreen()
 
     def build(self):
-        self.theme_cls.material_style = "M3"
-        return Builder.load_string(
-            '''
-#:import get_color_from_hex kivy.utils.get_color_from_hex
+
+        #Init button callbacks, other shit etc.
+
+        self.screen.ids.homework_scroll.add_widget(MDLabel(text='test', halign='center'))
+
+        return self.screen
 
 
-MDScreen:
+    def on_start(self):
+        self.fps_monitor_start()
 
-    MDBottomNavigation:
-        panel_color: get_color_from_hex("#eeeaea")
-        selected_color_background: get_color_from_hex("#97ecf8")
-        text_color_active: 0, 0, 0, 1
+        #Begin initial loading/generation
 
-        MDBottomNavigationItem:
-            name: 'screen 1'
-            text: 'Activity'
-            icon: 'bell'
-
-            MDLabel:
-                text: 'No Activity'
-                halign: 'center'
-
-        MDBottomNavigationItem:
-            name: 'screen 2'
-            text: 'Homework'
-            icon: 'bookshelf'
-
-            MDLabel:
-                text: 'Discord'
-                halign: 'center'
-
-        MDBottomNavigationItem:
-            name: 'screen 3'
-            text: 'Timetable'
-            icon: 'calendar'
-
-            MDLabel:
-                text: 'LinkedIN'
-                halign: 'center'
-'''
-        )
-
-
-Test().run()
+if __name__ == "__main__":  
+    MainApp().run()

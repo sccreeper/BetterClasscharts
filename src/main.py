@@ -25,7 +25,7 @@ MDScreen:
             icon: 'bell'
 
             MDLabel:
-                text: 'Activity'
+                text: 'No Activity'
                 halign: 'center'
 
         MDBottomNavigationItem:

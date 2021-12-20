@@ -1,5 +1,6 @@
 from datetime import date, datetime
 from util import MONTH, _Date, friendly_date
+import time as t
 
 import globals
 
@@ -9,25 +10,61 @@ def display_hw(*args):
 
     data = globals.API_CLIENT.get_homework()
 
+    homework_lists = {
+        "turned_in" : [],
+        "due" : [],
+        "late" : []
+    }
+
+    #Sort the homework into turned in, due, and late
+
     for hw in data:
-
-        #Figure out homework due conditions
-
-        #Parse date y/m/d
-
+        
         due_date = hw["due_date"].split("-")
         due_date = date(int(due_date[0]), int(due_date[1]), int(due_date[2]))
 
-        if due_date.day == time.day + 1:
-            due_date_string = "Tommorow"
-        else:
-            due_date_string = f"{due_date.day}{friendly_date(due_date.day)} {MONTH[due_date.month - 1]} {'' if due_date.year == time.year else due_date.year}"
-            
+        if hw["status"]["ticked"] == "yes": homework_lists["turned_in"].append(hw)
+        elif hw["status"]["ticked"] == "no" and t.time() < t.mktime(due_date.timetuple()): homework_lists["due"].append(hw)
+        else: homework_lists["late"].append(hw)
     
-        globals.screen.ids.homework_scroll.data.append(
+    globals.screen.ids.homework_scroll.data.append(
             {
-                "viewclass" : "HomeworkView",
-                "hw_title" : hw["title"],
-                "hw_subtitle" : hw["subject"] + " - Due: " + due_date_string,
+                "viewclass" : "MDLabel",
+                "font_style" : "Button",
+                "text" : "Turned in",
+                "id" : "label_turned_in"
             }
-        )
+    )
+
+    for L in homework_lists:
+        
+        _hw_list = homework_lists[L]
+
+        if L == "due":
+                globals.screen.ids.homework_scroll.data.append(
+            {
+                "viewclass" : "MDLabel",
+                "id" : "label_due",
+                "font_style" : "Button",
+                "text" : "Due"
+            }
+    )
+
+        for hw in _hw_list:
+
+            due_date = hw["due_date"].split("-")
+            due_date = date(int(due_date[0]), int(due_date[1]), int(due_date[2]))
+
+            if due_date.day == time.day + 1:
+                due_date_string = "Tommorow"
+            else:
+                due_date_string = f"{due_date.day}{friendly_date(due_date.day)} {MONTH[due_date.month - 1]} {'' if due_date.year == time.year else due_date.year}"
+                
+        
+            globals.screen.ids.homework_scroll.data.append(
+                {
+                    "viewclass" : "HomeworkView",
+                    "hw_title" : hw["title"],
+                    "hw_subtitle" : hw["subject"] + " - Due: " + due_date_string,
+                }
+            )

@@ -8,6 +8,7 @@ from api.client import StudentClient
 from views.py import homework_view
 
 import globals
+from handlers import display_homework
 
 import util
 
@@ -30,7 +31,7 @@ class MainApp(MDApp):
 
         self.theme_cls.material_style = "Dark"
 
-        globals.screen.ids.homework_button.bind(on_tab_press=display_hw)
+        globals.screen.ids.homework_button.bind(on_tab_press=display_homework.display_hw)
 
         return globals.screen
 
@@ -43,19 +44,6 @@ class MainApp(MDApp):
         globals.API_CLIENT = StudentClient("********", (0,0,0))
 
         globals.API_CLIENT.login()
-
-def display_hw(*args):
-    data = globals.API_CLIENT.get_homework()
-
-    for hw in data:
-    
-        globals.screen.ids.homework_scroll.data.append(
-            {
-                "viewclass" : "HomeworkView",
-                "hw_title" : hw["title"],
-                "hw_subtitle" : hw["subject"] + " - " + hw["due_date"],
-            }
-        )
 
 
     #self.screen.ids.homework_scroll.rows += 1

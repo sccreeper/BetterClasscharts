@@ -6,9 +6,20 @@
 
     size_hint_y: None
 
+    margin: (0, 20)
+
+    canvas.before:
+        Color:
+            rgba: (.9,.9,.9,1)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [(5, 5), (5, 5), (5, 5), (5, 5)]
+
     MDLabel:
         text: root.hw_title
         font_style: 'H6'
+        padding: (10, 10)
     
     MDGridLayout:
         cols: 2
@@ -23,4 +34,6 @@
             text: root.hw_subtitle
 
             size_hint_x: 1
+
+            padding: (10, 20)
         

@@ -1,9 +1,11 @@
 from sys import path
+from typing import List, NamedTuple
 import requests
 import json
+from collections import namedtuple
 
-from src.api import CLASSCHARTS_URL, ENDPOINT
-from src.api.http_methods import GET, POST
+from api import CLASSCHARTS_URL, ENDPOINT
+from api.http_methods import GET, POST
 
 class StudentClient:
 
@@ -53,7 +55,14 @@ class StudentClient:
         r = self.http_client.post(CLASSCHARTS_URL + ENDPOINT.LOGIN, data=payload)
 
         self.student_info = json.loads(r.text)
+        
+        #Check wether login was successful or not.
+        if not self.student_info["success"] == 1:
+            return "Login failed!" #TODO Handle properly
+        else:
+            print("login successful")
 
+        #Set variables for login data (session id etc)
         self.student_id = int(self.student_info["data"]["id"])
         self.session_id = self.student_info["meta"]["session_id"]
 
@@ -64,14 +73,22 @@ class StudentClient:
         pass
 
 
-    def get_homework(self):
+    def get_homework(self) -> List[dict]:
 
         headers = {
             "Authorization" : "Basic " + self.session_id
         }
 
-        
-        return self.http_client.get(f"{CLASSCHARTS_URL}/apiv2student/homeworks/{self.student_id}", headers=headers).text
+        data = self.http_client.get(f"{CLASSCHARTS_URL}/apiv2student/homeworks/{self.student_id}", headers=headers).text
+
+        data = json.loads(data)
+
+        hw_array = []
+
+        for hw in data["data"]:
+            hw_array.append(hw)
+
+        return hw_array
 
     
     def get_timetable():

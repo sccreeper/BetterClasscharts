@@ -1,0 +1,26 @@
+
+<HomeworkView>:
+    orientation: 'vertical'
+
+    width: root.width
+
+    size_hint_y: None
+
+    MDLabel:
+        text: root.hw_title
+        font_style: 'H6'
+    
+    MDGridLayout:
+        cols: 2
+
+        row_force_default: True
+        row_default_height: 50
+
+        size: root.width, 100
+
+        MDLabel:
+            font_style: 'Button'
+            text: root.hw_subtitle
+
+            size_hint_x: 1
+        

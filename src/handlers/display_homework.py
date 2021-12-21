@@ -10,6 +10,11 @@ def display_hw(*args):
 
     data = globals.API_CLIENT.get_homework()
 
+    if len(data) == globals.HOMEWORK_LENGTH:
+        return
+    else:
+        globals.screen.ids.homework_scroll.data = []
+
     homework_lists = {
         "turned_in" : [],
         "due" : [],

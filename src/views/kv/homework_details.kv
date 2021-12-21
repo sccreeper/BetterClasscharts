@@ -1,0 +1,40 @@
+<HomeworkDetailsView>:
+    cols: 1
+    #row_default_height: 50
+
+    row_default_height: 55
+    row_force_default: True
+
+    padding: [15, 15, 15, 15]
+
+
+    MDLabel:
+        text: root.hw_title
+        font_style: 'H5'
+    
+    MDLabel:
+        text: root.hw_set
+        font_style: 'Button'
+    MDLabel:
+        text: root.hw_due
+        font_style: 'Button'
+    MDLabel:
+        text: root.hw_description
+        font_style: 'Body1'
+    
+    GridLayout:
+
+        cols: 2
+
+        padding: [0, 25, 0, 0]
+
+        MDCheckbox:
+            id: hw_check
+            active: root.hw_turned_in
+            size_hint: None, None
+            size: "48dp", "48dp"
+
+        MDLabel:
+            text: 'Completed'
+            font_style: 'Button'
+

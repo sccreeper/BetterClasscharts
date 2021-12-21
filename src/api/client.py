@@ -7,6 +7,8 @@ from collections import namedtuple
 from api import CLASSCHARTS_URL, ENDPOINT
 from api.http_methods import GET, POST
 
+from kivy.logger import Logger
+
 class StudentClient:
 
     _cookies: dict
@@ -39,7 +41,7 @@ class StudentClient:
         #Check the code to see if it is valid
         if not json.loads(self.http_client.get(CLASSCHARTS_URL + ENDPOINT.CHECKCODE + self.code).text)["data"]["has_dob"]:
             #TODO: Handle this properly
-            print("Pupil code not valid!")
+            Logger.warning("API: Pupil code not valid!")
             return
         
         payload = {
@@ -58,9 +60,11 @@ class StudentClient:
         
         #Check wether login was successful or not.
         if not self.student_info["success"] == 1:
-            return "Login failed!" #TODO Handle properly
+            Logger.warning("API: Login failed!")
+
+            return #TODO Handle properly
         else:
-            print("login successful")
+            Logger.info("API: Login successful")
 
         #Set variables for login data (session id etc)
         self.student_id = int(self.student_info["data"]["id"])

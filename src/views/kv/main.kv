@@ -1,5 +1,5 @@
 #:import get_color_from_hex kivy.utils.get_color_from_hex
-
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
 
 
 <MainScreen>:
@@ -34,26 +34,12 @@
 
                 id: homework_button
 
-                Screen:
-                    id: homework_screen
+                ScreenManager:
 
-                    RecycleView:
-                        key_viewclass: 'viewclass'
-                        key_size: 'height'
+                    id: homework_screen_manager
+                    #current: 'HomeworkDetailsScreen'
 
-                        id: homework_scroll
-
-                        spacing: 64
-
-                        RecycleBoxLayout:
-                            spacing: 16
-
-                            padding: dp(16)
-                            default_size: None, dp(72)
-                            default_size_hint: 1, None
-                            size_hint_y: None
-                            height: self.minimum_height
-                            orientation: 'vertical'
+                    transition: FadeTransition()
 
             MDBottomNavigationItem:
                 name: 'screen 3'
@@ -70,3 +56,32 @@
                         size: dp(46), dp(46)
                         pos_hint: {'center_x': .5, 'center_y': .5}
                         active: True
+
+
+<HomeworkScreen>:
+    #id: 'homework_screen'
+
+    #name: 'HomeworkScreen'
+
+    RecycleView:
+        key_viewclass: 'viewclass'
+        key_size: 'height'
+
+        id: homework_scroll
+
+        spacing: 64
+
+        RecycleBoxLayout:
+            spacing: 16
+
+            padding: dp(16)
+            default_size: None, dp(72)
+            default_size_hint: 1, None
+            size_hint_y: None
+            height: self.minimum_height
+            orientation: 'vertical'
+
+<HomeworkDetailsScreen>:
+    id: homework_details_screen
+
+    name: 'homework_details'

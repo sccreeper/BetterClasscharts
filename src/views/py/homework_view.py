@@ -1,9 +1,10 @@
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.widget import Widget
-from kivy.properties import StringProperty
-from kivymd.uix.boxlayout import MDBoxLayout
+from kivy.properties import StringProperty, NumericProperty
+from kivy.uix.behaviors import ButtonBehavior
+from kivymd.uix.behaviors import CircularRippleBehavior
 
-class HomeworkView(BoxLayout):
+class HomeworkView(CircularRippleBehavior, ButtonBehavior, BoxLayout):
     hw_title = StringProperty()
     hw_subtitle = StringProperty()
 
+    hw_id = NumericProperty()

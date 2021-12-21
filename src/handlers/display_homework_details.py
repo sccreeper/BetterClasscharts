@@ -23,11 +23,31 @@ def display_homework_details(*args):
 
     globals.screen.ids.homework_screen_manager.get_screen("HomeworkDetailsScreen").clear_widgets() #Clear all children
 
+    #Format description
+    
+    #Replace pointless newlines at beginning of hw desc
+    
+    hw_description = hw["description"].replace("&nbsp;", " ")
+
+    index = 0
+
+    for c in hw_description:
+
+        if c == "\n":
+            temp = list(hw_description)
+            temp[index] = ""
+
+            hw_description = ''.join(temp)
+
+        else:
+            break
+
+
     globals.screen.ids.homework_screen_manager.get_screen("HomeworkDetailsScreen").add_widget(
 
         HomeworkDetailsView(
             hw_title = hw["title"],
-            hw_description = hw["description"].replace("&nbsp;", " "),
+            hw_description = hw_description,
             hw_set = "set: " + hw["issue_date"],
             hw_due = "due: " + hw["due_date"],
 

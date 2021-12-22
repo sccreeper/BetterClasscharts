@@ -11,6 +11,8 @@ def display_hw(*args):
 
     data = globals.API_CLIENT.get_homework()
 
+    globals.screen.ids.toolbar.title = "Homework" #Switch title
+
     if len(data) == globals.HOMEWORK_LENGTH:
         return
     else:

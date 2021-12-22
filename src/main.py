@@ -8,7 +8,7 @@ from api.client import StudentClient
 from views.py import homework_view
 
 import globals
-from handlers import display_homework_tiles
+from handlers import display_homework_tiles, display_activity, display_timetable
 
 import util
 
@@ -42,7 +42,10 @@ class MainApp(MDApp):
         globals.screen.ids.homework_screen_manager.add_widget(HomeworkScreen(name='HomeworkScreen'))
         globals.screen.ids.homework_screen_manager.add_widget(HomeworkDetailsScreen(name='HomeworkDetailsScreen'))
 
+        #Bind buttons to update screen
         globals.screen.ids.homework_button.bind(on_tab_press=display_homework_tiles.display_hw)
+        globals.screen.ids.activity_button.bind(on_tab_press=display_activity.display_activity)
+        globals.screen.ids.timetable_button.bind(on_tab_press=display_timetable.display_timetable)
 
         return globals.screen
 

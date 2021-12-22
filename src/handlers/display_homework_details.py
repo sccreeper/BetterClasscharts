@@ -24,7 +24,11 @@ def display_homework_details(*args):
 
     #print(globals.screen.ids.homework_screen_manager.get_screen("HomeworkDetailsScreen").ids)
 
+    #Set widgets on screen
+
     globals.screen.ids.homework_screen_manager.get_screen("HomeworkDetailsScreen").clear_widgets() #Clear all children
+
+    globals.screen.ids.toolbar.left_action_items = [["arrow-left", go_back]]
 
     #Format description
     
@@ -68,3 +72,13 @@ def display_homework_details(*args):
 
     #globals.screen.ids.
 
+#Logic for back arrow
+
+def go_back(*args):
+
+    #Clear menu
+    globals.screen.ids.toolbar.left_action_items = []
+    
+    #Switch back to main screen
+    globals.screen.ids.homework_screen_manager.transition = SlideTransition(direction="right",duration=0.25)
+    globals.screen.ids.homework_screen_manager.current = "HomeworkScreen"

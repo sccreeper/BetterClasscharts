@@ -1,6 +1,8 @@
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.label import MDLabel
+from kivy.core.window import Window
+from kivy.utils import platform
 
 from kivymd.app import MDApp
 from api.client import StudentClient
@@ -8,7 +10,7 @@ from api.client import StudentClient
 from views.py import homework_view
 
 import globals
-from handlers import display_homework_tiles, display_activity, display_timetable
+from handlers import display_homework_tiles, display_activity, display_timetable, display_homework_details
 
 import util
 
@@ -31,6 +33,9 @@ class HomeworkDetailsScreen(Screen):
 class MainApp(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+
+        Window.bind(on_key_up=self.handle_keyup)
+
         globals.screen = MainScreen()
 
     def build(self):
@@ -58,6 +63,27 @@ class MainApp(MDApp):
         globals.API_CLIENT = StudentClient("********", (0,0,0))
 
         globals.API_CLIENT.login()
+    
+    
+    def post_build_init(self,ev):
+        if platform == 'android':
+            import android
+            android.map_key(android.KEYCODE_BACK, 1001)
+
+    
+    #Hook onto Android back button event
+    #See: https://stackoverflow.com/a/20094268
+    
+    def handle_keyup(self, *args):
+
+        if args[1] == 1001: #Back on android
+
+            if globals.screen.ids.homework_screen_manager.current == "HomeworkDetailsScreen": #Are we on a homework screen?
+                display_homework_details.go_back()
+        
+                return True
+        
+        return False
 
 
     #self.screen.ids.homework_scroll.rows += 1

@@ -67,7 +67,7 @@ class MainApp(MDApp):
     
     def post_build_init(self,ev):
         if platform == 'android':
-            import android
+            import android # type: ignore
             android.map_key(android.KEYCODE_BACK, 1001)
 
     

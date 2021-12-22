@@ -93,6 +93,29 @@ class StudentClient:
             hw_array.append(hw)
 
         return hw_array
+    
+    def hand_in_homework(self, status_id: int) -> bool:
+        """
+        Hands in hw according to id.
+        Returns: Boolean depending wether request was successful or not.
+        """
+
+        #Logger.info(f"API: Handing in homework {status_id}...")
+        
+        headers = {
+             "Authorization" : "Basic " + self.session_id
+        }
+
+        data = self.http_client.get(f"{CLASSCHARTS_URL}{ENDPOINT.HW_HAND_IN}{status_id}?pupil_id={self.student_id}", headers=headers).text
+
+        data = json.loads(data)
+
+        if data["success"] == 1:
+            Logger.info(f"API: Handing in homework {status_id} SUCCESS")
+            return True
+        else:
+            Logger.warning(f"API: Handing in homework {status_id} FAILURE")
+            return False
 
     
     def get_timetable():

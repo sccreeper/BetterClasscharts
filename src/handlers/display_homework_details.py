@@ -19,6 +19,9 @@ def display_homework_details(*args):
         else: continue
     
     #Set data
+
+    hw_status_id = hw["status"]["id"]
+
     #print(globals.screen.ids.homework_screen_manager.get_screen("HomeworkDetailsScreen").ids)
 
     globals.screen.ids.homework_screen_manager.get_screen("HomeworkDetailsScreen").clear_widgets() #Clear all children
@@ -51,7 +54,9 @@ def display_homework_details(*args):
             hw_set = "set: " + hw["issue_date"],
             hw_due = "due: " + hw["due_date"],
 
-            hw_turned_in = True if hw["status"]["ticked"] == "yes" else False
+            hw_turned_in = True if hw["status"]["ticked"] == "yes" else False,
+
+            hw_id = hw_status_id
         )
 
     )

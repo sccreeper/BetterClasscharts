@@ -34,6 +34,8 @@
             size_hint: None, None
             size: "48dp", "48dp"
 
+            on_active: root.hand_in_hw(*args)
+
         MDLabel:
             text: 'Completed'
             font_style: 'Button'

@@ -8,3 +8,4 @@ CLASSCHARTS_URL = "https://www.classcharts.com"
 class ENDPOINT:
     CHECKCODE = "/student/checkpupilcode/"
     LOGIN = "/apiv2student/login"
+    HW_HAND_IN = "/apiv2student/homeworkticked/"

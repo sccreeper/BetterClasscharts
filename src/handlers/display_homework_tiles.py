@@ -2,6 +2,7 @@ from datetime import date, datetime
 from util import DAY, MONTH, _Date, friendly_date
 import time as t
 from handlers.display_homework_details import display_homework_details
+from kivy.logger import Logger
 
 import globals
 
@@ -18,6 +19,8 @@ def display_hw(*args):
     data = globals.API_CLIENT.get_homework()
 
     #Start of proc
+
+    Logger.info(f"Application: Recieved homework object. Length - {len(data)}")
     
     globals.screen.ids.toolbar.title = "Homework" #Switch title
 
@@ -53,7 +56,6 @@ def display_hw(*args):
     if not SHOW_DUE and not SHOW_TURNED_IN:
         NO_HW = True
 
-    NO_HW = True
     
     if not NO_HW:
     

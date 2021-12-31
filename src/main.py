@@ -8,15 +8,22 @@ from kivymd.app import MDApp
 from api.client import StudentClient
 
 from views.py import homework_view
+from views.py.login import LoginView
 
 import globals
 from handlers import display_homework_tiles, display_activity, display_timetable, display_homework_details
 
 import util
 
+#Subscreens
+
+#Homework
 Builder.load_file('views/kv/homework.kv')
 Builder.load_file('views/kv/homework_details.kv')
 
+#Main screens
+
+Builder.load_file('views/kv/login.kv')
 Builder.load_file('views/kv/main.kv')
 
 class MainScreen(Screen):

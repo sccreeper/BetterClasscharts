@@ -1,0 +1,41 @@
+<LoginView>:
+    orientation: 'vertical'
+
+    padding: "16px"
+
+    MDLabel:
+        text: "Login"
+        font_style: "H5"
+
+    MDTextField:
+        hint_text: "Code"
+    
+    MDLabel:
+        text: "Date of birth"
+        font_style: "Button"
+    
+    BoxLayout:
+        orientation: "horizontal"
+
+        spacing: "8px"
+
+        MDTextField:
+            input_filter: "int"
+            hint_text: "DD"
+
+            id: "day"
+        MDTextField:
+            input_filter: "int"
+            hint_text: "MM"
+
+            id: "month"
+        MDTextField:
+            input_filter: "int"
+            hint_text: "YYYY"
+
+            id: "year"
+
+    MDRaisedButton:
+        text: "Login"
+        font_style: "Button"
+        on_release: root.login()

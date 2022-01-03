@@ -44,7 +44,8 @@ def friendly_date(date: int) -> str:
     Returns st, nd, rd, or th depending on the int
     """
 
-    if str(date)[len(str(date))-1] == "1": return "st"
+    if date >= 10 and date <= 20: return "th"
+    elif str(date)[len(str(date))-1] == "1": return "st"
     elif str(date)[len(str(date))-1] == "2": return "nd"
     elif str(date)[len(str(date))-1] == "3": return "rd"
     else: return "th"

@@ -7,13 +7,13 @@ import sys
 
 sys.path.append("..")
 
-from views.py.login import LoginView
+from views.py.login import LoginScreen
 
 Builder.load_file('../views/kv/login.kv')
 
 class Test(MDApp):
     def build(self):
-        screen = LoginView()
+        screen = LoginScreen()
 
         return screen
 

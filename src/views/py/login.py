@@ -9,8 +9,9 @@ from kivymd.uix.boxlayout import MDBoxLayout
 
 #Other imports
 from datetime import datetime, date
+from handlers import login_handler
 
-class LoginView(MDBoxLayout):
+class LoginScreen(Screen):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -27,4 +28,7 @@ class LoginView(MDBoxLayout):
         self.student_dob_year = date.year
         self.student_dob_month = date.month
         self.student_dob_day = date.day
+    
+    def login(self):
+        login_handler.login()
     

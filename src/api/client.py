@@ -22,6 +22,8 @@ class StudentClient:
 
     http_client: requests.Session #Cookies are saved for each request
 
+    logged_in = False
+
     def __init__(self, student_code: str, student_dob: tuple) -> None:
 
         self.code = student_code
@@ -39,7 +41,7 @@ class StudentClient:
     def login(self):
 
         #Check the code to see if it is valid
-        if not json.loads(self.http_client.get(CLASSCHARTS_URL + ENDPOINT.CHECKCODE + self.code).text)["data"]["has_dob"]:
+        if not check_code(self.code):
             #TODO: Handle this properly
             Logger.warning("API: Pupil code not valid!")
             return
@@ -61,10 +63,12 @@ class StudentClient:
         #Check wether login was successful or not.
         if not self.student_info["success"] == 1:
             Logger.warning("API: Login failed!")
+            self.logged_in = False
 
             return #TODO Handle properly
         else:
             Logger.info("API: Login successful")
+            self.logged_in = True
 
         #Set variables for login data (session id etc)
         self.student_id = int(self.student_info["data"]["id"])
@@ -120,3 +124,8 @@ class StudentClient:
     
     def get_timetable():
         pass
+
+
+#Func for validating pupil code
+def check_code(code: str) -> bool: 
+    return json.loads(requests.get(CLASSCHARTS_URL + ENDPOINT.CHECKCODE + code).text)["data"]["has_dob"]

@@ -9,7 +9,7 @@ from kivymd.app import MDApp
 from api.client import StudentClient
 
 from views.py import homework_view
-from views.py.login import LoginView
+from views.py.login import LoginScreen
 
 import globals
 from handlers import display_homework_tiles, display_activity, display_timetable, display_homework_details
@@ -38,10 +38,6 @@ class HomeworkScreen(Screen):
     pass
 
 class HomeworkDetailsScreen(Screen):
-    pass
-
-#Login
-class LoginScreen(Screen):
     pass
 
 class MainApp(MDApp):
@@ -101,9 +97,9 @@ class MainApp(MDApp):
 
         #Begin initial loading/generation
 
-        globals.API_CLIENT = StudentClient("********", (0,0,0))
+        #globals.API_CLIENT = StudentClient("********", (0,0,0))
 
-        globals.API_CLIENT.login()
+        #globals.API_CLIENT.login()
     
     
     def post_build_init(self,ev):

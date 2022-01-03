@@ -21,3 +21,5 @@ DEFAULT_CONFIG = {
     "dark_mode": False
 
 }
+
+CURRENT_CONFIG = None

@@ -84,10 +84,21 @@ class MainApp(MDApp):
         #
         if (
             os.path.exists(os.path.join(globals.CONFIG_PATH, "config.json")) 
-            and 
+            and                                                                                              #config exists but not set up
             json.loads(util.read_file(os.path.join(globals.CONFIG_PATH, "config.json")))["set_up"] == False
         ):
             globals.screen_manager.current = "LoginScreen"
+        
+        elif (
+            os.path.exists(os.path.join(globals.CONFIG_PATH, "config.json")) 
+            and                                                                                            #config exists + set up
+            json.loads(util.read_file(os.path.join(globals.CONFIG_PATH, "config.json")))["set_up"] == True
+        ):
+            
+            globals.CURRENT_CONFIG = json.loads(util.read_file(os.path.join(globals.CONFIG_PATH, "config.json")))
+
+            globals.API_CLIENT = StudentClient(globals.CURRENT_CONFIG["code"], globals.CURRENT_CONFIG["dob"])
+            globals.API_CLIENT.login()
 
         return globals.screen_manager
 

@@ -1,5 +1,6 @@
+from sys import path
 from kivy.lang import Builder
-from kivy.uix.screenmanager import Screen
+from kivy.uix.screenmanager import NoTransition, Screen, ScreenManager, SwapTransition
 from kivymd.uix.label import MDLabel
 from kivy.core.window import Window
 from kivy.utils import platform
@@ -14,6 +15,7 @@ import globals
 from handlers import display_homework_tiles, display_activity, display_timetable, display_homework_details
 
 import util
+import os, pathlib, json
 
 #Subscreens
 
@@ -31,10 +33,15 @@ class MainScreen(Screen):
     def test():
         pass
 
+#Homework screens
 class HomeworkScreen(Screen):
     pass
 
 class HomeworkDetailsScreen(Screen):
+    pass
+
+#Login
+class LoginScreen(Screen):
     pass
 
 class MainApp(MDApp):
@@ -43,7 +50,15 @@ class MainApp(MDApp):
 
         Window.bind(on_key_up=self.handle_keyup)
 
-        globals.screen = MainScreen()
+        #Init screens
+        
+        globals.screen_manager = ScreenManager(transition=NoTransition())
+
+        globals.screen = MainScreen(name="MainScreen")
+        globals.login_screen = LoginScreen(name="LoginScreen")
+
+        globals.screen_manager.add_widget(globals.screen)
+        globals.screen_manager.add_widget(globals.login_screen)
 
     def build(self):
 
@@ -59,7 +74,26 @@ class MainApp(MDApp):
         globals.screen.ids.activity_button.bind(on_tab_press=display_activity.display_activity)
         globals.screen.ids.timetable_button.bind(on_tab_press=display_timetable.display_timetable)
 
-        return globals.screen
+        #Config
+        globals.CONFIG_PATH = self.user_data_dir
+
+        #Check to see if config exists, if not, create new.
+        if not os.path.exists(os.path.join(globals.CONFIG_PATH, "config.json")):
+            
+            if not os.path.exists(globals.CONFIG_PATH): os.mkdir(globals.CONFIG_PATH)
+            pathlib.Path(os.path.join(globals.CONFIG_PATH, "config.json"))
+
+            util.write_file(os.path.join(globals.CONFIG_PATH, "config.json"), json.dumps(globals.DEFAULT_CONFIG))
+        
+        #
+        if (
+            os.path.exists(os.path.join(globals.CONFIG_PATH, "config.json")) 
+            and 
+            json.loads(util.read_file(os.path.join(globals.CONFIG_PATH, "config.json")))["set_up"] == False
+        ):
+            globals.screen_manager.current = "LoginScreen"
+
+        return globals.screen_manager
 
 
     def on_start(self):

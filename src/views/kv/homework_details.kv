@@ -2,8 +2,8 @@
     cols: 1
     #row_default_height: 50
 
-    row_default_height: 55
-    row_force_default: True
+    #row_default_height: 32
+    row_force_default: False
 
     padding: [15, 15, 15, 15]
 
@@ -11,15 +11,20 @@
     MDLabel:
         text: root.hw_title
         font_style: 'H5'
+        size_hint_y: 0.25
     
     MDLabel:
         text: root.hw_set
         font_style: 'Button'
+        size_hint_y: 0.15
     MDLabel:
         text: root.hw_due
         font_style: 'Button'
+        size_hint_y: 0.15
     MDLabel:
-        text: '\n\n' + root.hw_description
+        text: "\n\n\n\n\n\n\n" + root.hw_description
+        valign: 'middle'
+        size_hint: root.desc_size_hint
         font_style: 'Body1'
     
     GridLayout:
@@ -31,7 +36,7 @@
         MDCheckbox:
             id: hw_check
             active: root.hw_turned_in
-            size_hint: None, None
+            size_hint: 0.15, 0.15
             size: "48dp", "48dp"
 
             on_active: root.hand_in_hw(*args)
@@ -39,4 +44,6 @@
         MDLabel:
             text: 'Completed'
             font_style: 'Button'
+
+            #padding: [64, 0]
 

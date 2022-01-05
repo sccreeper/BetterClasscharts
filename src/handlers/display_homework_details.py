@@ -2,6 +2,8 @@ from kivy.logger import Logger
 from kivy.uix.screenmanager import SlideTransition
 from views.py.homework_details import HomeworkDetailsView
 
+from handlers.desc_parser import Parser
+
 import globals
 
 def display_homework_details(*args):
@@ -48,13 +50,19 @@ def display_homework_details(*args):
 
         else:
             break
+    
+    desc_parsed = Parser()
+    hw_description = desc_parsed.parse(hw_description)
 
 
     globals.screen.ids.homework_screen_manager.get_screen("HomeworkDetailsScreen").add_widget(
 
         HomeworkDetailsView(
             hw_title = hw["title"],
+            
             hw_description = hw_description,
+            desc_size_hint = (1.0, 1.0),
+
             hw_set = "set: " + hw["issue_date"],
             hw_due = "due: " + hw["due_date"],
 

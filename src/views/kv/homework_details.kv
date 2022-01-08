@@ -1,49 +1,96 @@
+#!from kivy.core.window import Window
+
 <HomeworkDetailsView>:
-    cols: 1
+    
+    orientation: 'vertical'
+
+    # do_scroll_y: True
+    # do_scroll_x: False
     #row_default_height: 50
 
-    #row_default_height: 32
-    row_force_default: False
+    MDGridLayout:
+        cols: 1
 
-    padding: [15, 15, 15, 15]
+        height: (len(root.hw_description) / 80) * 14
+        # cols: 1
+
+        row_default_height: 32
+        row_force_default: False
+
+        padding: [15, 15, 15, 15]
+
+        MDBoxLayout:
+            adaaptive_height: True
+            orientation: 'vertical'
+
+            spacing: 5
+        
+            MDLabel:
+                text: root.hw_title
+                font_style: 'H5'
+                size_hint_y: 0.15
+            
+            MDLabel:
+                text: root.hw_set
+                font_style: 'Button'
+                size_hint_y: 0.3
+            MDLabel:
+                text: root.hw_due
+                font_style: 'Button'
+                size_hint_y: 0.3
+
+            GridLayout:
+
+                rows: 1
+
+                padding: [0, 16, 0, 0]
+
+                id: attachments
+
+                MDLabel:
+                    text: 'Attachments'
+                    font_style: 'Button'
+
+                    #padding: [64, 0]
+            
+            GridLayout:
+
+                cols: 2
+
+                padding: [0, 32, 0, 0]
+
+                MDCheckbox:
+                    id: hw_check
+                    active: root.hw_turned_in
+                    size_hint: 0.15, 0.15
+                    size: "48dp", "48dp"
+
+                    on_active: root.hand_in_hw(*args)
+
+                MDLabel:
+                    text: 'Completed'
+                    font_style: 'Button'
+
+                    #padding: [64, 0]
+       
+        ScrollView:
+        
+            size_hint_y: 0.5
+
+            do_scroll_y: True
+            do_scroll_x: False
+
+            scroll_timeout: 250
+            scroll_distance: 20
 
 
-    MDLabel:
-        text: root.hw_title
-        font_style: 'H5'
-        size_hint_y: 0.25
-    
-    MDLabel:
-        text: root.hw_set
-        font_style: 'Button'
-        size_hint_y: 0.15
-    MDLabel:
-        text: root.hw_due
-        font_style: 'Button'
-        size_hint_y: 0.15
-    MDLabel:
-        text: "\n\n\n\n\n\n\n" + root.hw_description
-        valign: 'middle'
-        size_hint: root.desc_size_hint
-        font_style: 'Body1'
-    
-    GridLayout:
+            MDLabel:
+                
+                size_hint: 1.0, None
+                size: self.texture_size
 
-        cols: 2
-
-        padding: [0, 64, 0, 0]
-
-        MDCheckbox:
-            id: hw_check
-            active: root.hw_turned_in
-            size_hint: 0.15, 0.15
-            size: "48dp", "48dp"
-
-            on_active: root.hand_in_hw(*args)
-
-        MDLabel:
-            text: 'Completed'
-            font_style: 'Button'
-
-            #padding: [64, 0]
+                text: root.hw_description
+                valign: 'middle'
+                font_style: 'Body1'
+        
 

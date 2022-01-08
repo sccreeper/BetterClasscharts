@@ -1,4 +1,4 @@
-from kivy.uix.gridlayout import GridLayout
+from kivy.uix.scrollview import ScrollView
 from kivy.uix.widget import Widget
 from kivy.properties import StringProperty, BooleanProperty, NumericProperty, ListProperty
 from kivymd.uix.boxlayout import MDBoxLayout
@@ -7,7 +7,7 @@ from kivymd.uix.gridlayout import MDGridLayout
 
 import globals
 
-class HomeworkDetailsView(MDGridLayout):
+class HomeworkDetailsView(MDBoxLayout):
     hw_title = StringProperty()
     hw_description = StringProperty()
     

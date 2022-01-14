@@ -5,6 +5,7 @@ from views.py.homework_details import HomeworkDetailsView
 from handlers.desc_parser import Parser
 
 import globals
+from handlers import open_url
 
 def display_homework_details(*args):
     Logger.info(f"Application: Displaying homework {args[0]}")
@@ -73,10 +74,14 @@ def display_homework_details(*args):
 
     )
 
-
+    
     #Transition to homework screen
     globals.screen.ids.homework_screen_manager.transition = SlideTransition(direction="left",duration=0.25)
     globals.screen.ids.homework_screen_manager.current = "HomeworkDetailsScreen"
+
+    #Bind ref
+    # print(globals.screen.ids.homework_screen_manager.get_screen("HomeworkDetailsScreen").ids)
+    # globals.screen.ids.homework_screen_manager.get_screen("HomeworkDetailsScreen").ids.hw_desc.bind(on_ref_press=open_url.launch_webbrowser)
 
     #globals.screen.ids.
 

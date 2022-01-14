@@ -6,6 +6,7 @@ from kivymd.toast import toast
 from kivymd.uix.gridlayout import MDGridLayout
 
 import globals
+from handlers import open_url
 
 class HomeworkDetailsView(MDBoxLayout):
     hw_title = StringProperty()
@@ -19,6 +20,10 @@ class HomeworkDetailsView(MDBoxLayout):
     hw_id = NumericProperty()
 
     desc_size_hint = ListProperty()
+
+    def open_link(self, _instance, url):
+        print("ooga booga")
+        open_url.launch_webbrowser(_instance, url)
 
     def hand_in_hw(self, checkbox, value):
         

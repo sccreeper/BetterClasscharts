@@ -4,7 +4,7 @@ from kivy.utils import platform
 import webbrowser
 
 if platform == 'android':
-    from jinius import autoclass, cast
+    from jnius import autoclass, cast
 
 def launch_webbrowser(instance, url):
     

@@ -14,6 +14,8 @@ class AttachmentTile(CircularRippleBehavior, ButtonBehavior, BoxLayout):
 
     attachment_url = StringProperty()
 
+    homework_id = NumericProperty()
+
     #Referenced by layout in kv file
     def view_attachment(self):
-        open_file(self, self.attachment_url)
+        open_file(self, self.attachment_url, self.homework_id, self.attachment_name)

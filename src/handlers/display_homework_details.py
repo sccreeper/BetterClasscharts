@@ -95,11 +95,12 @@ def display_homework_details(*args):
                     "attachment_name" : attachment["file_name"],
                     "attachment_icon" : icon,
                     "attachment_progress" : 0,
-                    "attachment_url" : attachment["file"]
+                    "attachment_url" : attachment["file"],
+                    "homework_id" : hw["id"]
                 }
             )
 
-    print(len(attachment_data))
+    #print(len(attachment_data))
 
     globals.homework_details_screen.add_widget(
 
@@ -125,7 +126,7 @@ def display_homework_details(*args):
     #Add hw attachment.
     globals.homework_details_screen.children[0].ids.attachments.refresh_from_data()
 
-    print(globals.homework_details_screen.children[0].ids.attachments.data)
+    #print(globals.homework_details_screen.children[0].ids.attachments.data)
 
     
     #Transition to homework screen

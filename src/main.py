@@ -22,6 +22,7 @@ import os, pathlib, json
 #Homework
 Builder.load_file('views/kv/homework.kv')
 Builder.load_file('views/kv/homework_details.kv')
+Builder.load_file('views/kv/attachment_tile.kv')
 
 #Main screens
 
@@ -53,6 +54,8 @@ class MainApp(MDApp):
         globals.screen = MainScreen(name="MainScreen")
         globals.login_screen = LoginScreen(name="LoginScreen")
 
+        globals.homework_details_screen = HomeworkDetailsScreen(name="HomeworkDetailsScreen")
+
         globals.screen_manager.add_widget(globals.screen)
         globals.screen_manager.add_widget(globals.login_screen)
 
@@ -63,7 +66,7 @@ class MainApp(MDApp):
         #self.theme_cls.theme_style = "Dark"
 
         globals.screen.ids.homework_screen_manager.add_widget(HomeworkScreen(name='HomeworkScreen'))
-        globals.screen.ids.homework_screen_manager.add_widget(HomeworkDetailsScreen(name='HomeworkDetailsScreen'))
+        globals.screen.ids.homework_screen_manager.add_widget(globals.homework_details_screen)
 
         #Bind buttons to update screen
         globals.screen.ids.homework_button.bind(on_tab_press=display_homework_tiles.display_hw)

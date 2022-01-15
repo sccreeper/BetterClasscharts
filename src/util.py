@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import mimetypes
 
 def read_file(path):
     with open(path, 'r') as file:
@@ -38,6 +39,19 @@ DAY = [ #Works provided that Monday is 0, Sunday is 6
     "Saturday"
     "Sunday"
 ]
+
+#Add extra types to mimetypes module
+
+#Microsoft (Common ones)
+mimetypes.add_type("application/msword", ".docx")
+mimetypes.add_type("application/vnd.ms-powerpoint", ".pptx")
+mimetypes.add_type("application/vnd.ms-excel", ".xlsx")
+
+#Open document From: (https://en.wikipedia.org/wiki/OpenDocument)
+
+mimetypes.add_type("application/vnd.oasis.opendocument.text", "odt")
+mimetypes.add_type("application/vnd.oasis.opendocument.presentation", "odp")
+mimetypes.add_type("application/vnd.oasis.opendocument.spreadsheet", "ods")
 
 def friendly_date(date: int) -> str:
     """

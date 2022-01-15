@@ -1,0 +1,50 @@
+<AttachmentTile>:
+    orientation: 'vertical'
+
+    width: root.width
+
+    size_hint_y: None
+
+    margin: (20, 20)
+
+    ripple_color: 0.6, 0.6, 0.6, 0.5
+    ripple_scale: 1
+    ripple_alpha: 0.1
+
+    on_press: root.view_attachment()
+
+    canvas.before:
+        Color:
+            rgba: (.9,.9,.9,1)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [(5, 5), (5, 5), (5, 5), (5, 5)]
+    
+    MDGridLayout:
+
+        cols: 2
+
+        MDIcon:
+            icon: root.attachment_icon
+
+            size_hint_x: 0.1
+
+            font_size: 32
+
+
+
+        MDGridLayout:
+
+            rows: 2
+        
+            MDLabel:
+                text: root.attachment_name
+                font_style: 'Body1'
+                halign: 'left'
+                padding: (5, 10)
+
+                font_size: 16
+        
+            MDProgressBar:
+                value: root.download_progress

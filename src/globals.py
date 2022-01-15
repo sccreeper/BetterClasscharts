@@ -11,6 +11,7 @@ screen_manager = None
 
 screen = None
 login_screen = None
+homework_details_screen = None
 
 CONFIG_PATH = None
 DEFAULT_CONFIG = {

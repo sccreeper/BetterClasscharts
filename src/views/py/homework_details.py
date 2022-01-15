@@ -21,8 +21,9 @@ class HomeworkDetailsView(MDBoxLayout):
 
     desc_size_hint = ListProperty()
 
+    attachment_data = ListProperty()
+
     def open_link(self, _instance, url):
-        print("ooga booga")
         open_url.launch_webbrowser(_instance, url)
 
     def hand_in_hw(self, checkbox, value):

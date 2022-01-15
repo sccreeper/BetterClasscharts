@@ -11,7 +11,10 @@
     MDGridLayout:
         cols: 1
 
+        rows: 2
+
         height: (len(root.hw_description) / 80) * 14
+        width: Window.width
         # cols: 1
 
         #row_default_height: 32
@@ -21,40 +24,78 @@
 
         padding: [15, 15, 15, 15]
 
-        MDBoxLayout:
-            adaaptive_height: True
-            orientation: 'vertical'
+        MDGridLayout:
 
-            spacing: 3
+            cols: 1
+
+            size_hint_y: 0.5
+
+            adaaptive_height: True
+            #orientation: 'vertical'
         
             MDLabel:
                 text: root.hw_title
                 font_style: 'H5'
+
+                size_hint_y: 0.15
             
-            MDLabel:
-                text: root.hw_set
-                font_style: 'Button'
-            MDLabel:
-                text: root.hw_due
-                font_style: 'Button'
+            MDGridLayout:
+
+                size_hint_y: 0.15
+
+                cols: 1
+            
+                MDLabel:
+                    text: root.hw_set
+                    font_style: 'Button'
+
+                    size_hint_y: 0.5
+                MDLabel:
+                    text: root.hw_due
+                    font_style: 'Button'
+
+                    size_hint_y: 0.5
 
             GridLayout:
 
-                rows: 1
+                size_hint_y: 0.5
+
+                rows: 2
 
                 padding: [0, 16, 0, 0]
 
-                id: attachments
-
                 MDLabel:
+                    size_hint_y: 0.1
+
                     text: 'Attachments'
                     font_style: 'Button'
 
                     #padding: [64, 0]
+                
+                RecycleView:
+
+                    id: attachments
+
+                    key_viewclass: 'viewclass'
+                    key_size: 'height'
+
+                    data: root.attachment_data
+
+                    RecycleBoxLayout:
+                        spacing: 16
+
+                        padding: dp(16)
+                        default_size: None, dp(48)
+                        default_size_hint: 1, None
+                        size_hint_y: None
+                        height: self.minimum_height
+                        orientation: 'vertical'
             
             GridLayout:
 
                 cols: 2
+
+                size_hint_y: 0.15
 
                 padding: [0, 32, 0, 0]
 
@@ -62,7 +103,7 @@
                     id: hw_check
                     active: root.hw_turned_in
                     size_hint: 0.15, 0.15
-                    size: "48dp", "48dp"
+                    size: "16dp", "16dp"
 
                     on_active: root.hand_in_hw(*args)
 
@@ -74,7 +115,7 @@
        
         ScrollView:
         
-            size_hint_y: 0.75
+            size_hint_y: 0.5
 
             do_scroll_y: True
             do_scroll_x: False

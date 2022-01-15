@@ -1,6 +1,9 @@
 from kivy.logger import Logger
 from kivy.uix.screenmanager import SlideTransition
 from views.py.homework_details import HomeworkDetailsView
+from views.py.attachment_tile import AttachmentTile
+
+import mimetypes, os
 
 from handlers.desc_parser import Parser
 
@@ -55,8 +58,50 @@ def display_homework_details(*args):
     desc_parsed = Parser()
     hw_description = desc_parsed.parse(hw_description)
 
+    #Add attachments, if any
 
-    globals.screen.ids.homework_screen_manager.get_screen("HomeworkDetailsScreen").add_widget(
+    attachment_data = []
+
+    if not len(hw["validated_attachments"]) == 0:
+        
+        for attachment in hw["validated_attachments"]:
+
+            #Figure out icon
+
+            ext = mimetypes.types_map[os.path.splitext(attachment["file_name"])[1]] #Here for cleaner code
+
+            if "powerpoint" in ext or "opendocument.presentation" in ext:
+                icon = "file-presentation-box"
+            elif "word" in ext or "opendocument.text" in ext:
+                icon = "file-document"
+            elif "excel" in ext or "opendocument.spreadsheet" in ext:
+                icon = "file-table" 
+            elif ext.split("/")[1] == "pdf":
+                icon = "file-pdf-box"
+            elif "image" in ext:
+                icon = "file-image"
+            elif "video" in ext:
+                icon = "video"
+            elif "audio" in ext:
+                icon = "volume-high"
+            else:
+                icon = "file"
+
+            #print(globals.screen.ids)
+
+            attachment_data.append(
+                {
+                    "viewclass" : "AttachmentTile",
+                    "attachment_name" : attachment["file_name"],
+                    "attachment_icon" : icon,
+                    "attachment_progress" : 0,
+                    "attachment_url" : attachment["file"]
+                }
+            )
+
+    print(len(attachment_data))
+
+    globals.homework_details_screen.add_widget(
 
         HomeworkDetailsView(
             hw_title = hw["title"],
@@ -69,10 +114,18 @@ def display_homework_details(*args):
 
             hw_turned_in = True if hw["status"]["ticked"] == "yes" else False,
 
-            hw_id = hw_status_id
+            hw_id = hw_status_id,
+
+            attachment_data = attachment_data
+
         )
 
     )
+
+    #Add hw attachment.
+    globals.homework_details_screen.children[0].ids.attachments.refresh_from_data()
+
+    print(globals.homework_details_screen.children[0].ids.attachments.data)
 
     
     #Transition to homework screen

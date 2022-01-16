@@ -14,6 +14,9 @@ class Parser(HTMLParser):
     #Styling types
     in_bold = False
     in_underlined = False
+    
+    #Bullet points
+    in_bulletpoint = False
 
     parsed_string = ""
 
@@ -43,10 +46,17 @@ class Parser(HTMLParser):
                     self.in_bold = True
                                     
         
-        elif tag == "strong":
+        elif tag == "strong" or tag == "b":
             self.parsed_string += "[b]"
 
             self.in_bold = True
+
+        #Bullet points
+
+        elif tag == "li":
+            self.parsed_string += "[b]  • [/b]" 
+
+            self.in_bulletpoint = True
 
 
     def handle_endtag(self, tag):
@@ -62,12 +72,12 @@ class Parser(HTMLParser):
             self.parsed_string += "[/u]"
             self.in_underlined = False
         #Bold
-        elif tag == "strong" and self.in_bold:
+        elif tag == "strong" and self.in_bold or tag == "span" and self.in_bold or tag == "b" and self.in_bold:
             self.parsed_string += "[/b]"
             self.in_bold = False
-        elif tag == "span" and self.in_bold:
-            self.parsed_string += "[/b]"
-            self.in_bold = False
+        
+        elif tag == "li" and self.in_bulletpoint:
+            self.parsed_string += "\n"
 
     def handle_data(self, data):
         

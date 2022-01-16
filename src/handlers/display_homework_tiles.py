@@ -90,9 +90,9 @@ def display_hw(*args):
                 due_date = date(int(due_date[0]), int(due_date[1]), int(due_date[2]))
 
                 if due_date.day == time.day + 1:
-                    due_date_string = "Tommorow"
+                    due_date_string = "[color=ff0000]Tommorow [/color]"
                 elif due_date.day == time.day:
-                    due_date_string = "Today"
+                    due_date_string = "[color=ff0000]Today [/color]"
                 else:
                     due_date_string = f"{DAY[due_date.weekday()]} {due_date.day}{friendly_date(due_date.day)} {MONTH[due_date.month - 1]} {'' if due_date.year == time.year else due_date.year}"
                     

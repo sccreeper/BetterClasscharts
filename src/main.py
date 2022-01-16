@@ -4,6 +4,7 @@ from kivy.uix.screenmanager import NoTransition, Screen, ScreenManager, SwapTran
 from kivymd.uix.label import MDLabel
 from kivy.core.window import Window
 from kivy.utils import platform
+from kivy.logger import Logger
 
 from kivymd.app import MDApp
 from api.client import StudentClient
@@ -76,6 +77,10 @@ class MainApp(MDApp):
         #Config
         globals.CONFIG_PATH = self.user_data_dir
 
+        #Logging in + config
+        
+        Logger.info("Application: Logging in...")
+
         #Check to see if config exists, if not, create new.
         if not os.path.exists(os.path.join(globals.CONFIG_PATH, "config.json")):
             
@@ -102,6 +107,11 @@ class MainApp(MDApp):
 
             globals.API_CLIENT = StudentClient(globals.CURRENT_CONFIG["code"], globals.CURRENT_CONFIG["dob"])
             globals.API_CLIENT.login()
+
+            #Backwards compatibility
+
+            if not os.path.exists(os.path.join(globals.CONFIG_PATH, "homework_downloads")):
+                os.mkdir(os.path.join(globals.CONFIG_PATH, "homework_downloads"))
 
         return globals.screen_manager
 

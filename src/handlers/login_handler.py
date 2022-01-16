@@ -51,7 +51,8 @@ def login():
         util.write_file(os.path.join(globals.CONFIG_PATH, "config.json"), json.dumps(globals.CURRENT_CONFIG))
 
         #Make homework downloads directory
-        os.mkdir(os.path.join(globals.CONFIG_PATH, "homework_downloads"))
+        if not os.path.exists(os.path.join(globals.CONFIG_PATH, "homework_downloads")):
+            os.mkdir(os.path.join(globals.CONFIG_PATH, "homework_downloads"))
 
         globals.screen_manager.current = "MainScreen"
 

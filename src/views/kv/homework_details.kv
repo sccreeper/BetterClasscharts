@@ -95,15 +95,17 @@
 
                 cols: 2
 
-                size_hint_y: 0.15
+                size_hint_y: 0.25
+                
 
                 padding: [0, 32, 0, 0]
 
                 MDCheckbox:
                     id: hw_check
                     active: root.hw_turned_in
-                    size_hint: 0.15, 0.15
-                    size: "16dp", "16dp"
+                    size: "48dp", "48dp"
+
+                    size_hint_x: 0.1
 
                     on_active: root.hand_in_hw(*args)
 

@@ -1,0 +1,17 @@
+#Thing used for seperating hw.
+#(Turned in, Not turned in etc.)
+
+#KV implementation of src/views/py/homework_sorter.py
+
+<HomeworkSorter>:
+    cols: 2
+
+    MDLabel:
+        text: root.text
+
+        font_style: 'Button'
+
+        size_hint_x: 0.15
+
+    MDIcon:
+        icon: 'chevron-up' if root.hidden else 'chevron-down'

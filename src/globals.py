@@ -24,3 +24,7 @@ DEFAULT_CONFIG = {
 }
 
 CURRENT_CONFIG = None
+
+#TODO: Save this to config and load it in the future
+SHOW_HANDED_IN = True
+SHOW_DUE = True

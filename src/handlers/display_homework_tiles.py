@@ -1,7 +1,11 @@
 from datetime import date, datetime
+from re import T
 from util import DAY, MONTH, _Date, friendly_date
 import time as t
+
 from handlers.display_homework_details import display_homework_details
+from views.py import homework_sorter
+
 from kivy.logger import Logger
 
 import globals
@@ -12,9 +16,12 @@ def display_hw(*args):
     #Semi-globals
     time = datetime.now()
 
-    SHOW_TURNED_IN = True
-    SHOW_DUE = True
+    IS_THERE_TURNED_IN = True
+    IS_THERE_DUE = True
     NO_HW = False
+
+    SHOWING_DUE = False
+    SHOWING_HANDED_IN = True
 
     data = globals.API_CLIENT.get_homework()
 
@@ -48,25 +55,24 @@ def display_hw(*args):
     
     #See wether to show turned in or due.
     if len(homework_lists["turned_in"]) == 0:
-        SHOW_TURNED_IN = False
+        IS_THERE_TURNED_IN = False
     
     if len(homework_lists["due"] + homework_lists["late"]) == 0:
-        SHOW_DUE = False
+        IS_THERE_DUE = False
 
-    if not SHOW_DUE and not SHOW_TURNED_IN:
+    if not IS_THERE_DUE and not IS_THERE_TURNED_IN:
         NO_HW = True
 
     
     if not NO_HW:
     
-        if SHOW_TURNED_IN: 
+        if IS_THERE_TURNED_IN: 
         
             globals.screen.ids.homework_screen_manager.get_screen("HomeworkScreen").ids.homework_scroll.data.append(
                     {
-                        "viewclass" : "MDLabel",
-                        "font_style" : "Button",
+                        "viewclass" : "HomeworkSorter",
+                        "hidden" : globals.SHOW_HANDED_IN,
                         "text" : "Turned in",
-                        "id" : "label_turned_in"
                     }
             )
 
@@ -75,16 +81,25 @@ def display_hw(*args):
             _hw_list = homework_lists[L]
 
             if L == "due":
-                    globals.screen.ids.homework_screen_manager.get_screen("HomeworkScreen").ids.homework_scroll.data.append(
-                {
-                    "viewclass" : "MDLabel",
-                    "id" : "label_due",
-                    "font_style" : "Button",
-                    "text" : "Due"
-                }
-        )
+                globals.screen.ids.homework_screen_manager.get_screen("HomeworkScreen").ids.homework_scroll.data.append(
+                    {
+                        "viewclass" : "HomeworkSorter",
+                        "hidden" : globals.SHOW_DUE,
+                        "text" : "Due"
+                    }
+
+                )
+
+                SHOWING_DUE = True
+                SHOWING_HANDED_IN = False
+            
 
             for hw in _hw_list:
+
+                if SHOWING_DUE and not globals.SHOW_DUE:
+                    continue
+                elif SHOWING_HANDED_IN and not globals.SHOW_HANDED_IN:
+                    continue
 
                 due_date = hw["due_date"].split("-")
                 due_date = date(int(due_date[0]), int(due_date[1]), int(due_date[2]))

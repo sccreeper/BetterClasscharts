@@ -21,9 +21,11 @@ import os, pathlib, json
 #Subscreens
 
 #Homework
+#TODO automate this
 Builder.load_file('views/kv/homework.kv')
 Builder.load_file('views/kv/homework_details.kv')
 Builder.load_file('views/kv/attachment_tile.kv')
+Builder.load_file('views/kv/homework_sorter.kv')
 
 #Main screens
 

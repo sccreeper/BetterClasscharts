@@ -1,19 +1,21 @@
 from sys import path
 from kivy.lang import Builder
-from kivy.uix.screenmanager import NoTransition, Screen, ScreenManager, SwapTransition
+from kivy.uix.screenmanager import NoTransition, Screen, ScreenManager, SlideTransition
 from kivymd.uix.label import MDLabel
+from kivymd.app import MDApp
+
 from kivy.core.window import Window
 from kivy.utils import platform
 from kivy.logger import Logger
 
-from kivymd.app import MDApp
 from api.client import StudentClient
 
 from views.py import homework_view
 from views.py.login import LoginScreen
+from views.py.settings import SettingsScreen
 
 import globals
-from handlers import display_homework_tiles, display_activity, display_timetable, display_homework_details
+from handlers import display_homework_tiles, display_activity, display_timetable, display_homework_details, settings
 
 import util
 import os, pathlib, json
@@ -31,6 +33,7 @@ Builder.load_file('views/kv/homework_sorter.kv')
 
 Builder.load_file('views/kv/login.kv')
 Builder.load_file('views/kv/main.kv')
+Builder.load_file('views/kv/settings.kv')
 
 class MainScreen(Screen):
 
@@ -56,11 +59,13 @@ class MainApp(MDApp):
 
         globals.screen = MainScreen(name="MainScreen")
         globals.login_screen = LoginScreen(name="LoginScreen")
+        globals.settings_screen = SettingsScreen(name="SettingsScreen")
 
         globals.homework_details_screen = HomeworkDetailsScreen(name="HomeworkDetailsScreen")
 
         globals.screen_manager.add_widget(globals.screen)
         globals.screen_manager.add_widget(globals.login_screen)
+        globals.screen_manager.add_widget(globals.settings_screen)
 
     def build(self):
 
@@ -132,6 +137,16 @@ class MainApp(MDApp):
         if platform == 'android':
             import android # type: ignore
             android.map_key(android.KEYCODE_BACK, 1001)
+    
+    #Settings transitions
+    def show_settings(self, *args):
+        settings.show_settings_screen()
+
+    #General purpose show main screen
+    def show_main_screen(self, *args):
+        globals.screen_manager.transition = SlideTransition(direction="right", duration=0.25)
+        globals.screen_manager.current = "MainScreen"
+
 
     
     #Hook onto Android back button event

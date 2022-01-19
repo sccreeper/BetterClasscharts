@@ -9,9 +9,14 @@ HOMEWORK_LENGTH =  -1
 
 screen_manager = None
 
+#UI
+
 screen = None
 login_screen = None
 homework_details_screen = None
+settings_screen = None
+
+#Config
 
 CONFIG_PATH = None
 DEFAULT_CONFIG = {

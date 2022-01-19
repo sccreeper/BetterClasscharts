@@ -1,0 +1,56 @@
+
+<SettingsScreen>
+    MDBoxLayout:
+        orientation: 'vertical'
+
+        id: settings_screen
+
+        MDToolbar:
+            title: "Settings"
+            id: settings_toolbar
+
+            type: "top"
+
+            left_action_items: [["arrow-left", lambda x: app.show_main_screen()]]
+        
+        MDBoxLayout:
+
+            padding: [16, 16, 16, 16]
+
+            orientation: 'vertical'
+        
+            MDLabel:
+                id: code_label
+
+                markup: True
+                font_style: "Subtitle1"
+
+                size_hint_y: 0.15
+
+                text: "[b]Code: [/b]" + root.student_code
+            
+            
+            ScrollView: #Get this to display properly
+
+                do_scroll_y: False
+                do_scroll_x: False
+            
+                MDList:
+
+                    OneLineIconListItem:
+                        text: "Appearance"
+
+                        IconLeftWidget:
+                            icon: "shape-outline"
+                    
+                    OneLineIconListItem:
+                        text: "About"
+
+                        IconLeftWidget:
+                            icon: "information-outline"
+                    
+                    OneLineIconListItem:
+                        text: "Logout"
+
+                        IconLeftWidget:
+                            icon: "exit-to-app"

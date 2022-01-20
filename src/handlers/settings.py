@@ -1,8 +1,20 @@
-#Functions shown in the 3 dots menu
+#Logic for settings
+
+#Kivy libaries
 
 from kivy.app import App
-from kivy.uix.screenmanager import SlideTransition
+from kivy.logger import Logger
 
+from kivy.uix.screenmanager import SlideTransition, NoTransition
+from kivymd.uix.dialog import MDDialog
+
+#System libs
+
+import os, json
+
+#Project libs
+
+import util
 import globals
 
 def show_settings_screen(*args):
@@ -17,4 +29,24 @@ def show_settings_screen(*args):
     globals.screen_manager.current = "SettingsScreen"
 
 def logout(*args):
-    pass
+
+    Logger.info("Application: Logging out...")
+
+    #Set clear current and saved config.
+
+    globals.CURRENT_CONFIG["set_up"] = False
+    globals.CURRENT_CONFIG["code"] = ""
+    globals.CURRENT_CONFIG["dob"] = (0,0,0)
+
+    util.write_file(os.path.join(globals.CONFIG_PATH, "config.json"), json.dumps(globals.CURRENT_CONFIG))
+
+    # "Delete" API client
+
+    globals.API_CLIENT = None
+
+    #Switch to login screen
+
+    globals.screen_manager.transition = NoTransition()
+    globals.screen_manager.current = "LoginScreen"
+
+    Logger.info("Application: Logged out!")

@@ -1,0 +1,90 @@
+<AboutScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+
+        id: about_screen
+
+        MDToolbar:
+            title: "About"
+            id: settings_toolbar
+
+            type: "top"
+
+            left_action_items: [["arrow-left", lambda x: root.go_back()]]
+        
+        MDBoxLayout:
+
+            padding: [16, 16, 16, 16]
+
+            orientation: 'vertical'
+
+            MDLabel:
+                text: "Better Classcharts"
+
+                font_style: "H3"
+
+                halign: "center"
+
+                size_hint_y: 0.25
+            
+            MDLabel:
+                font_style: "Body1"
+
+                halign: "center"
+
+                text: "An alternative to the ClassCharts mobile app. \n Made by Oscar Peace aka sccreeper."
+            
+
+            MDBoxLayout:
+                orientation: "horizontal"
+
+                AboutItem:
+                    icon: "scale-balance"
+                    text: "Licenses"
+                
+                AboutItem:
+                    icon: "github"
+                    text: "Source"
+
+<LicensesScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+
+        id: licenses_screen
+
+        MDToolbar:
+            title: "Licenses"
+            id: licenses_toolbar
+
+            type: "top"
+
+            left_action_items: [["arrow-left", lambda x: root.go_back()]]
+
+        ScrollView:
+            do_scroll_x: True
+            do_scroll_y: True
+
+            MDLabel:
+                font_style: "Body1"
+
+                size_hint: 1.0, None
+                size: self.texture_size
+
+                text: root.license_text
+
+<AboutItem>:
+    cols: 2
+
+    MDIcon:
+        icon: root.icon
+
+        font_size: 32
+
+        size_hint_x: 0.25
+
+    MDLabel:
+        font_style: "H6"
+
+        halign: "left"
+
+        text: root.text    

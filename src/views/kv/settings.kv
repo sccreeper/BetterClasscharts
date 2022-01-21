@@ -30,7 +30,7 @@
                 text: "[b]Code: [/b]" + root.student_code
             
             
-            ScrollView: #Get this to display properly
+            ScrollView:
 
                 do_scroll_y: False
                 do_scroll_x: False
@@ -45,6 +45,8 @@
                     
                     OneLineIconListItem:
                         text: "About"
+
+                        on_release: root.about_screen(*args)
 
                         IconLeftWidget:
                             icon: "information-outline"

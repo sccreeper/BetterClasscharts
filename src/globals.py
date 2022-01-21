@@ -16,6 +16,9 @@ login_screen = None
 homework_details_screen = None
 settings_screen = None
 
+about_screen = None
+licenses_screen = None
+
 #Config
 
 CONFIG_PATH = None

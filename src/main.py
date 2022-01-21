@@ -13,6 +13,7 @@ from api.client import StudentClient
 from views.py import homework_view
 from views.py.login import LoginScreen
 from views.py.settings import SettingsScreen
+from views.py.about import AboutScreen, AboutItem, LicensesScreen
 
 import globals
 from handlers import display_homework_tiles, display_activity, display_timetable, display_homework_details, settings
@@ -34,6 +35,7 @@ Builder.load_file('views/kv/homework_sorter.kv')
 Builder.load_file('views/kv/login.kv')
 Builder.load_file('views/kv/main.kv')
 Builder.load_file('views/kv/settings.kv')
+Builder.load_file('views/kv/about.kv')
 
 class MainScreen(Screen):
 
@@ -60,12 +62,16 @@ class MainApp(MDApp):
         globals.screen = MainScreen(name="MainScreen")
         globals.login_screen = LoginScreen(name="LoginScreen")
         globals.settings_screen = SettingsScreen(name="SettingsScreen")
+        globals.about_screen = AboutScreen(name="AboutScreen")
+        globals.licenses_screen = LicensesScreen(name="LicensesScreen")
 
         globals.homework_details_screen = HomeworkDetailsScreen(name="HomeworkDetailsScreen")
 
         globals.screen_manager.add_widget(globals.screen)
         globals.screen_manager.add_widget(globals.login_screen)
         globals.screen_manager.add_widget(globals.settings_screen)
+        globals.screen_manager.add_widget(globals.about_screen)
+        globals.screen_manager.add_widget(globals.licenses_screen)
 
     def build(self):
 

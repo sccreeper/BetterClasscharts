@@ -34,7 +34,9 @@ Originally started as a joke to add dark theme to the original app, then turned 
 
 ## Building
 
-These are the instructions for building for Android. 
+These are the instructions for building for Android.
+
+You can also use the `build.sh` script.
 
 For other platforms see the [Kivy docs](https://kivy.org/doc/stable/guide/packaging.html).
 

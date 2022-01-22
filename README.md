@@ -79,6 +79,6 @@ buildozer android debug deploy run
 
 <sup>1</sup>Any system that uses the `apt` package manager should work.
 
-<sup>2</sup>Until [this](https://github.com/kivy/kivy/issues/7747) issue is fixed.
+<sup>2</sup>Until [this](https://github.com/kivy/kivy/issues/7747) issue is fixed and Kivy has support for Python 3.10
 
 <sup>3</sup>For a release build, replace `debug` with `release`

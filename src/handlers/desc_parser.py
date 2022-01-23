@@ -3,6 +3,8 @@ from cssutils import CSSParser
 from cssutils.css import CSSRule
 import cssutils
 
+import globals
+
 #HTML parsew inheritired from Python parser to parse HW descriptions
 #TODO In future implement this: https://kivy.org/doc/stable/api-kivy.core.text.markup.html
 class Parser(HTMLParser):
@@ -25,7 +27,7 @@ class Parser(HTMLParser):
             self.in_paragraph = True
         elif tag == "a": #Links
             
-            self.parsed_string += f"[color=00aaff][ref={attrs[0][1]}]" #Colour so the link actually shows up as seperate to the body
+            self.parsed_string += f"[color={globals.CURRENT_CONFIG['accent_colour']}][ref={attrs[0][1]}]" #Colour so the link actually shows up as seperate to the body
 
             self.in_href = True
         elif tag == "br": #Linebreak

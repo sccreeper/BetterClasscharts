@@ -12,6 +12,8 @@ import globals
 
 
 def display_hw(*args):
+
+    globals.CURRENT_TAB = "homework"
     
     #Semi-globals
     time = datetime.now()

@@ -1,0 +1,94 @@
+<AppearanceScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+
+        id: appearance_screen
+
+        MDToolbar:
+            title: "Appearance"
+            id: settings_toolbar
+
+            type: "top"
+
+            left_action_items: [["arrow-left", lambda x: root.go_back()]]
+        
+        MDBoxLayout:
+
+            padding: [16, 16, 16, 16]
+
+            orientation: 'vertical'
+
+            spacing: 8
+
+            size_hint: 1.0, 1.0
+        
+            MDLabel:
+                text: "Theme"
+
+                font_style: "H6"
+
+                size_hint_y: 0.1
+            
+            ThemeCheckComponent:
+
+                text: "Dark"
+
+                size_hint_y: 0.05
+
+                id: dark_check
+            ThemeCheckComponent:
+
+                text: "Light"
+
+                size_hint_y: 0.05
+
+                id: light_check
+            
+
+            MDLabel:
+                text: "Accent colour"
+
+                font_style: "H6"
+
+                size_hint_y: 0.1
+
+            ColourPickerDropdown:
+                id: colour_picker
+
+                size_hint_y: 0.05
+
+#Other UI components
+
+<ThemeCheck>:
+    group: 'theme_group'
+
+    allow_no_selection: False
+
+    #on_state: root.change_theme_colour("UI")
+
+    size_hint_x: None
+    size_hint_y: None
+
+    size: dp(32), dp(32)
+
+<ThemeCheckComponent>:
+    cols: 2
+
+    MDLabel:
+
+        text: root.text
+
+    ThemeCheck:
+
+        
+
+
+<ColourPickerDropdown>:
+    text: root.current_colour
+
+
+
+
+
+
+

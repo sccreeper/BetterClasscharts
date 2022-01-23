@@ -18,6 +18,11 @@ settings_screen = None
 
 about_screen = None
 licenses_screen = None
+appearance_screen = None
+
+app_object = None
+
+CURRENT_TAB = "activity"
 
 #Config
 
@@ -27,11 +32,25 @@ DEFAULT_CONFIG = {
     "set_up" : False,
     "code" : "",
     "dob" : (0, 0, 0), #D, M, Y
-    "dark_mode": False
+    "dark_mode": False,
+    "accent_name": "Blue", #See: https://kivymd.readthedocs.io/en/latest/themes/theming/index.html#kivymd.theming.ThemeManager.primary_palette
+    "accent_colour": "2962FF" #Default blue colour, see ACCENT_COLOURS: Dict
 
 }
 
 CURRENT_CONFIG = None
+
+ACCENT_COLOURS = [ #Used for displaying colours in UI
+
+    ["Red", "D50000"],
+    ["Pink", "C51162"],
+    ["Purple", "AA00FF"],
+    ["Blue", "2962FF"],
+    ["Teal", "004D40"],
+    ["Green", "2E7D32"],
+    ["Orange", "E65100"],
+
+]
 
 #TODO: Save this to config and load it in the future
 SHOW_HANDED_IN = True

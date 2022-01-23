@@ -16,7 +16,7 @@
 
     canvas.before:
         Color:
-            rgba: (.9,.9,.9,1)
+            rgba: (.12,.12,.12,1) if app.theme_cls.theme_style == "Dark" else (.9,.9,.9,1)
         RoundedRectangle:
             pos: self.pos
             size: self.size

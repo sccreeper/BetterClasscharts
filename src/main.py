@@ -15,6 +15,7 @@ from views.py.login import LoginScreen
 from views.py.settings import SettingsScreen
 from views.py.about import AboutScreen, AboutItem, LicensesScreen
 from views.py.appearance import AppearanceScreen
+from views.py.activity import ActivityScreen
 
 import globals
 from handlers import display_homework_tiles, display_activity, display_timetable, display_homework_details, settings
@@ -34,6 +35,7 @@ Builder.load_file('views/kv/homework_sorter.kv')
 #Main screens
 
 Builder.load_file('views/kv/login.kv')
+Builder.load_file('views/kv/activity_screen.kv')
 Builder.load_file('views/kv/main.kv')
 Builder.load_file('views/kv/settings.kv')
 Builder.load_file('views/kv/about.kv')

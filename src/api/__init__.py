@@ -9,3 +9,4 @@ class ENDPOINT:
     CHECKCODE = "/student/checkpupilcode/"
     LOGIN = "/apiv2student/login"
     HW_HAND_IN = "/apiv2student/homeworkticked/"
+    ACTIVITY = "/apiv2student/activity/"

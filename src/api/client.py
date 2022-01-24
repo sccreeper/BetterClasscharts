@@ -124,7 +124,34 @@ class StudentClient:
     
     def get_timetable():
         pass
+    
+    def get_activity(self) -> bool:
 
+        """Gets the activity, returns a List[dict]
+
+        Returns:
+            List[Dict]: List of all the activity items.
+        """
+
+        headers = {
+             "Authorization" : "Basic " + self.session_id
+        }
+
+        data = self.http_client.get(f"{CLASSCHARTS_URL}{ENDPOINT.ACTIVITY}{self.student_id}", headers=headers).text
+
+        data = json.loads(data)
+
+        data_list = []
+        
+        #Filter out behaivour only because that's what we support
+
+        for d in data["data"]:
+            if d["type"] == "behaviour":
+                data_list.append(d)
+            else:
+                continue
+
+        return data_list
 
 #Func for validating pupil code
 def check_code(code: str) -> bool: 

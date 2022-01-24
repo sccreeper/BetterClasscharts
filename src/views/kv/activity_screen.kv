@@ -1,0 +1,16 @@
+<ActivityScreen>:
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+
+        MDList:
+            id: activity_list
+
+<CustomThreeLineAvatarIconListItem>:
+
+    IconLeftWidget:
+        icon: root.icon
+
+        #Using propeties inherited from https://kivymd.readthedocs.io/en/latest/components/button/index.html#kivymd.uix.button.button.MDIconButton
+        text_color: root.icon_color
+        theme_text_color: 'Custom'

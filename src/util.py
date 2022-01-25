@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import mimetypes
+from datetime import date, datetime
 
 def read_file(path):
     with open(path, 'r') as file:
@@ -63,3 +64,26 @@ def friendly_date(date: int) -> str:
     elif str(date)[len(str(date))-1] == "2": return "nd"
     elif str(date)[len(str(date))-1] == "3": return "rd"
     else: return "th"
+
+
+def english_date(_date: str, is_due=False) -> str:
+    due_date = _date.split("-")
+    due_date = date(int(due_date[0]), int(due_date[1]), int(due_date[2]))
+
+    time = datetime.now()
+
+    #Figure out if homework is late
+    if is_due and datetime(due_date.year, due_date.month, due_date.day).timestamp() < time.timestamp():
+        LATE = True
+    else: LATE = False
+
+    if due_date.day == time.day + 1:
+        due_date_string = "[color=ff0000]Tommorow [/color]"
+    elif due_date.day == time.day:
+        due_date_string = "[color=ff0000]Today [/color]" if is_due else "Today"
+    elif due_date.day == time.day - 1:
+        due_date_string = "[color=ff0000]Yesterday [/color]" if is_due else "Yesterday"
+    else:
+        due_date_string = f"{'[color=ff0000]' if is_due and LATE else ''}{DAY[due_date.weekday()]} {due_date.day}{friendly_date(due_date.day)} {MONTH[due_date.month - 1]} {'' if due_date.year == time.year else due_date.year}{'[/color]' if is_due and LATE else ''}"
+
+    return due_date_string

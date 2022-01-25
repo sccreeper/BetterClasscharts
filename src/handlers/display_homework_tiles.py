@@ -1,6 +1,6 @@
 from datetime import date, datetime
 from re import T
-from util import DAY, MONTH, _Date, friendly_date
+from util import DAY, MONTH, _Date, english_date, friendly_date
 import time as t
 
 from handlers.display_homework_details import display_homework_details
@@ -103,17 +103,8 @@ def display_hw(*args):
                 elif SHOWING_HANDED_IN and not globals.SHOW_HANDED_IN:
                     continue
 
-                due_date = hw["due_date"].split("-")
-                due_date = date(int(due_date[0]), int(due_date[1]), int(due_date[2]))
-
-                if due_date.day == time.day + 1:
-                    due_date_string = "[color=ff0000]Tommorow [/color]"
-                elif due_date.day == time.day:
-                    due_date_string = "[color=ff0000]Today [/color]"
-                else:
-                    due_date_string = f"{DAY[due_date.weekday()]} {due_date.day}{friendly_date(due_date.day)} {MONTH[due_date.month - 1]} {'' if due_date.year == time.year else due_date.year}"
-                    
-            
+                due_date_string = english_date(hw["due_date"], is_due=True if SHOWING_DUE else False)
+                
                 globals.screen.ids.homework_screen_manager.get_screen("HomeworkScreen").ids.homework_scroll.data.append(
                     {
                         "viewclass" : "HomeworkView",

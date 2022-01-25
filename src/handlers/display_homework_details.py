@@ -5,10 +5,10 @@ from views.py.attachment_tile import AttachmentTile
 
 import mimetypes, os
 
-from handlers.desc_parser import Parser
-
 import globals
 from handlers import open_url
+from handlers.desc_parser import Parser
+from util import english_date
 
 def display_homework_details(*args):
     Logger.info(f"Application: Displaying homework {args[0]}")
@@ -110,8 +110,8 @@ def display_homework_details(*args):
             hw_description = hw_description,
             desc_size_hint = (1.0, 1.0),
 
-            hw_set = "set: " + hw["issue_date"],
-            hw_due = "due: " + hw["due_date"],
+            hw_set = "Set: " + english_date(hw["issue_date"]),
+            hw_due = "Due: " + english_date(hw["due_date"], is_due=False if hw["status"]["ticked"] == "yes" else True),
 
             hw_turned_in = True if hw["status"]["ticked"] == "yes" else False,
 

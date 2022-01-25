@@ -2,16 +2,7 @@ from views.py.activity import CustomThreeLineAvatarIconListItem
 from kivy.logger import Logger
 import globals
 
-TIMES_SWITCHED = 0
-
 def display_activity(*args):
-    #Very bad practice ik but to fix a bodge in main.py -> MainApp -> on_start
-    global TIMES_SWITCHED
-
-    TIMES_SWITCHED += 1
-
-    if TIMES_SWITCHED == 2:
-        return
 
     globals.CURRENT_TAB = "activity"
     globals.screen.ids.toolbar.title = "Activity"

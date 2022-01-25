@@ -1,5 +1,8 @@
 from views.py.activity import CustomThreeLineAvatarIconListItem
 from kivy.logger import Logger
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.button import MDFlatButton
+
 import globals
 from datetime import datetime, date
 
@@ -29,7 +32,8 @@ def display_activity(*args):
                 secondary_text=f"{data['score']} point{'s' if data['score'] != 1 else ''}",
                 tertiary_text=f"Awarded by {data['teacher_name']} in {data['lesson_name']} on {award_date.day}/{award_date.month}", #TODO make this look nice
                 icon="thumb-up" if data["polarity"] == "positive" else "thumb-down",
-                icon_color="00FF00" if data["polarity"] == "positive" else "FF0000"
+                icon_color="00FF00" if data["polarity"] == "positive" else "FF0000",
+                description_text=data["note"]
 
             )
 

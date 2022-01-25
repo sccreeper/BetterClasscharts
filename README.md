@@ -1,7 +1,12 @@
 # Better ClassCharts <!-- omit in toc -->
 
-**Contents**
+<p align="center">
+  <img width="256" height="256" src="src/res/logo-256.png">
+</p>
 
+---
+
+**Contents**
 
 - [Information](#information)
 - [Supported Platforms](#supported-platforms)

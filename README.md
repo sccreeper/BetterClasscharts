@@ -48,7 +48,7 @@ For other platforms see the [Kivy docs](https://kivy.org/doc/stable/guide/packag
 **Requirements**
 - Ubuntu 20.04 or later<sup>1</sup>
 - A phone running Android 5.0 or later
-- Python 3.9<sup>2</sup>
+- Python 3.10
 
 **Steps**
 
@@ -83,7 +83,5 @@ buildozer android debug deploy run
 ## Notes
 
 <sup>1</sup>Any system that uses the `apt` package manager should work.
-
-<sup>2</sup>Until [this](https://github.com/kivy/kivy/issues/7747) issue is fixed and Kivy has support for Python 3.10
 
 <sup>3</sup>For a release build, replace `debug` with `release`

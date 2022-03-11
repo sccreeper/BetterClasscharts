@@ -20,6 +20,8 @@ about_screen = None
 licenses_screen = None
 appearance_screen = None
 
+splash_screen = None
+
 app_object = None
 
 CURRENT_TAB = "activity"

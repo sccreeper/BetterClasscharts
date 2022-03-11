@@ -7,6 +7,7 @@ from kivymd.app import MDApp
 from kivy.core.window import Window
 from kivy.utils import platform
 from kivy.logger import Logger
+from kivy.clock import Clock
 
 from api.client import StudentClient
 
@@ -40,6 +41,7 @@ Builder.load_file('views/kv/main.kv')
 Builder.load_file('views/kv/settings.kv')
 Builder.load_file('views/kv/about.kv')
 Builder.load_file('views/kv/appearance.kv')
+Builder.load_file('views/kv/splash_screen.kv')
 
 class MainScreen(Screen):
 
@@ -51,6 +53,10 @@ class HomeworkScreen(Screen):
     pass
 
 class HomeworkDetailsScreen(Screen):
+    pass
+
+class SplashScreen(Screen):
+
     pass
 
 class MainApp(MDApp):
@@ -70,6 +76,8 @@ class MainApp(MDApp):
         globals.licenses_screen = LicensesScreen(name="LicensesScreen")
         globals.appearance_screen = AppearanceScreen(name="AppearanceScreen")
 
+        globals.splash_screen = SplashScreen(name="SplashScreen")
+
         globals.homework_details_screen = HomeworkDetailsScreen(name="HomeworkDetailsScreen")
 
         globals.screen.ids.homework_screen_manager.add_widget(HomeworkScreen(name='HomeworkScreen'))
@@ -80,6 +88,7 @@ class MainApp(MDApp):
         globals.screen_manager.add_widget(globals.about_screen)
         globals.screen_manager.add_widget(globals.licenses_screen)
         globals.screen_manager.add_widget(globals.appearance_screen)
+        globals.screen_manager.add_widget(globals.splash_screen)
         globals.screen.ids.homework_screen_manager.add_widget(globals.homework_details_screen)
 
         #Bind buttons to update screen
@@ -120,9 +129,6 @@ class MainApp(MDApp):
             
             globals.CURRENT_CONFIG = json.loads(util.read_file(os.path.join(globals.CONFIG_PATH, "config.json")))
 
-            globals.API_CLIENT = StudentClient(globals.CURRENT_CONFIG["code"], globals.CURRENT_CONFIG["dob"])
-            globals.API_CLIENT.login()
-
             #Backwards compatibility
 
             if not os.path.exists(os.path.join(globals.CONFIG_PATH, "homework_downloads")):
@@ -141,13 +147,15 @@ class MainApp(MDApp):
         self.theme_cls.primary_palette = globals.CURRENT_CONFIG["accent_name"]
         self.theme_cls.theme_style = "Dark" if globals.CURRENT_CONFIG["dark_mode"] else "Light"
 
+        globals.screen_manager.current = "SplashScreen"
+
         return globals.screen_manager
 
 
     def on_start(self):
         self.fps_monitor_start()
 
-        globals.screen.ids.bottom_navigation.switch_tab(globals.CURRENT_TAB) #Get wodget to be orange on start
+        Clock.schedule_once(lambda x: self.app_init(), 0.1)
         
     def post_build_init(self,ev):
         if platform == 'android':
@@ -162,8 +170,17 @@ class MainApp(MDApp):
     def show_main_screen(self, *args):
         globals.screen_manager.transition = SlideTransition(direction="right", duration=0.25)
         globals.screen_manager.current = "MainScreen"
+    
+    #Actual login and start, called after UI has loaded.
+    def app_init(self, *args):
 
+        globals.API_CLIENT = StudentClient(globals.CURRENT_CONFIG["code"], globals.CURRENT_CONFIG["dob"])
+        globals.API_CLIENT.login()
 
+        globals.screen.ids.bottom_navigation.switch_tab(globals.CURRENT_TAB) #Get wodget to be orange on start
+
+        globals.screen_manager.current = "MainScreen"
+        
     
     #Hook onto Android back button event
     #See: https://stackoverflow.com/a/20094268

@@ -3,6 +3,7 @@ from typing import List, NamedTuple
 import requests
 import json
 from collections import namedtuple
+import time
 
 from api import CLASSCHARTS_URL, ENDPOINT
 from api.http_methods import GET, POST
@@ -24,6 +25,8 @@ class StudentClient:
 
     logged_in = False
 
+    dummy_client: bool
+
     def __init__(self, student_code: str, student_dob: tuple) -> None:
 
         self.code = student_code
@@ -34,11 +37,17 @@ class StudentClient:
         self.session_id = "" 
         self.student_id = 0
 
-        self.http_client = requests.Session() 
+        self.http_client = requests.Session()
 
+        if self.code == "dummy" and student_dob == "dummy":
+            self.dummy_client = True
+        else: 
+            self.dummy_client = False 
 
     #Initiates the client and logs it in to ClassCharts
     def login(self):
+
+        start_time = time.time()
 
         #Check the code to see if it is valid
         if not check_code(self.code):
@@ -76,12 +85,16 @@ class StudentClient:
 
         self._cookies = r.cookies
 
+        Logger.info(f"API: Logged in {time.time() - start_time} second(s)")
+
     def _request(method: int, endpoint: str, auth: bool, **kwargs):
         
         pass
 
 
     def get_homework(self) -> List[dict]:
+
+        if self.dummy_client: return []
 
         headers = {
             "Authorization" : "Basic " + self.session_id
@@ -104,6 +117,8 @@ class StudentClient:
         Returns: Boolean depending wether request was successful or not.
         """
 
+        if self.dummy_client: return False
+
         #Logger.info(f"API: Handing in homework {status_id}...")
         
         headers = {
@@ -122,7 +137,9 @@ class StudentClient:
             return False
 
     
-    def get_timetable():
+    def get_timetable(self):
+        if self.dummy_client: return False
+
         pass
     
     def get_activity(self) -> bool:
@@ -132,6 +149,8 @@ class StudentClient:
         Returns:
             List[Dict]: List of all the activity items.
         """
+
+        if self.dummy_client: return []
 
         headers = {
              "Authorization" : "Basic " + self.session_id

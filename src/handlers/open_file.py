@@ -1,5 +1,7 @@
 from kivy.utils import platform
+from kivy.clock import Clock
 
+from functools import partial
 import requests, os, threading
 
 import globals
@@ -38,10 +40,10 @@ def download_file(url, filename, tile):
                 # and set chunk_size parameter to None.
                 #if chunk: 
                 f.write(chunk)
-    
 
-    tile.children[0].children[0].children[0].stop()
-    tile.children[0].children[0].children[0].opacity = 0
+    #Hide progress bar
+
+    Clock.schedule_once(partial(_hide_progress, tile), 0)
 
     #Open file in preferred app. Modified from: https://stackoverflow.com/a/435669
     
@@ -58,3 +60,11 @@ def download_file(url, filename, tile):
         subprocess.call(('xdg-open', filename))
     else: #android
         pass
+
+#Function for updating progress opacity
+#Seee https://stackoverflow.com/questions/22031262/altering-a-kivy-property-from-another-thread
+
+def _hide_progress(tile, *args):
+    
+    tile.children[0].children[0].children[0].stop()
+    tile.children[0].children[0].children[0].opacity = 0

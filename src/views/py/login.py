@@ -4,7 +4,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen
 from kivy.logger import Logger
 
-from kivymd.uix.picker import MDDatePicker, MDTimePicker
+#from kivymd.uix.picker import MDDatePicker, MDTimePicker
 from kivymd.uix.boxlayout import MDBoxLayout
 
 #Other imports

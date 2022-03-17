@@ -98,6 +98,12 @@ class MainApp(MDApp):
 
     def build(self):
 
+        return globals.screen_manager
+
+
+    def on_start(self):
+        self.fps_monitor_start()
+
         #Config
         globals.CONFIG_PATH = self.user_data_dir
 
@@ -112,6 +118,8 @@ class MainApp(MDApp):
             pathlib.Path(os.path.join(globals.CONFIG_PATH, "config.json"))
 
             util.write_file(os.path.join(globals.CONFIG_PATH, "config.json"), json.dumps(globals.DEFAULT_CONFIG))
+
+            globals.CURRENT_CONFIG = json.loads(util.read_file(os.path.join(globals.CONFIG_PATH, "config.json")))
         
         #
         if (
@@ -143,19 +151,19 @@ class MainApp(MDApp):
                 util.write_file(os.path.join(globals.CONFIG_PATH, "config.json"), json.dumps(globals.CURRENT_CONFIG))
         
         #Theming
+
+        globals.CURRENT_CONFIG = json.loads(util.read_file(os.path.join(globals.CONFIG_PATH, "config.json")))
+
         
         self.theme_cls.primary_palette = globals.CURRENT_CONFIG["accent_name"]
         self.theme_cls.theme_style = "Dark" if globals.CURRENT_CONFIG["dark_mode"] else "Light"
 
-        globals.screen_manager.current = "SplashScreen"
-
-        return globals.screen_manager
-
-
-    def on_start(self):
-        self.fps_monitor_start()
-
-        Clock.schedule_once(lambda x: self.app_init(), 0.1)
+        if globals.CURRENT_CONFIG["set_up"] == False:
+            globals.screen_manager.current = "LoginScreen"
+        else:
+            globals.screen_manager.current = "SplashScreen"
+            Clock.schedule_once(lambda x: self.client_login(), 1)
+    
         
     def post_build_init(self,ev):
         if platform == 'android':
@@ -172,7 +180,7 @@ class MainApp(MDApp):
         globals.screen_manager.current = "MainScreen"
     
     #Actual login and start, called after UI has loaded.
-    def app_init(self, *args):
+    def client_login(self, *args):
 
         globals.API_CLIENT = StudentClient(globals.CURRENT_CONFIG["code"], globals.CURRENT_CONFIG["dob"])
         globals.API_CLIENT.login()

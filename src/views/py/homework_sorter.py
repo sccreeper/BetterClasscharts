@@ -23,5 +23,5 @@ class HomeworkSorter(ButtonBehavior, GridLayout):
             globals.SHOW_HANDED_IN = not globals.SHOW_HANDED_IN
 
         #Refresh homework view
-        display_homework_tiles.display_hw()
+        display_homework_tiles.update_hw()
 

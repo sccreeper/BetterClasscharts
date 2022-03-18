@@ -21,6 +21,7 @@ licenses_screen = None
 appearance_screen = None
 
 splash_screen = None
+loading_circle_screen = None
 
 app_object = None
 
@@ -57,3 +58,4 @@ ACCENT_COLOURS = [ #Used for displaying colours in UI
 #TODO: Save this to config and load it in the future
 SHOW_HANDED_IN = True
 SHOW_DUE = True
+HW_CACHE = None #Cache the homework locally to avoid requesting it from the API each time.

@@ -1,19 +1,44 @@
 from datetime import date, datetime
-from re import T
-from util import DAY, MONTH, _Date, english_date, friendly_date
+import functools
+from util import english_date
 import time as t
-
-from handlers.display_homework_details import display_homework_details
-from views.py import homework_sorter
+from threading import Thread
+from functools import partial
 
 from kivy.logger import Logger
+from kivy.clock import Clock
+from kivy.uix.screenmanager import NoTransition, FadeTransition
+
+from views.py import homework_sorter
+from handlers.display_homework_details import display_homework_details
 
 import globals
 
+def fetch_hw():
 
-def display_hw(*args):
+    data = globals.API_CLIENT.get_homework()
 
-    globals.CURRENT_TAB = "homework"
+    globals.HW_CACHE = data
+
+    Clock.schedule_once(partial(render_hw, data), 0)
+    
+
+#Method that pulls homework data and calls render method.
+def update_hw(*args):
+    if not len(args) == 0: #Sees if the screen was switched from the navigation or the due + turned in show hide.
+
+        globals.CURRENT_TAB = "homework"
+        globals.screen.ids.toolbar.title = "Homework"
+        
+        globals.screen.ids.homework_screen_manager.transition = NoTransition()
+        globals.screen.ids.homework_screen_manager.current = "LoadingCircleScreen"
+
+        hw_thread = Thread(target=fetch_hw, args=())
+        hw_thread.start()
+    else:
+        render_hw(globals.HW_CACHE)
+
+def render_hw(data, *args):
     
     #Semi-globals
     time = datetime.now()
@@ -25,13 +50,9 @@ def display_hw(*args):
     SHOWING_DUE = False
     SHOWING_HANDED_IN = True
 
-    data = globals.API_CLIENT.get_homework()
-
     #Start of proc
 
     Logger.info(f"Application: Recieved homework object. Length - {len(data)}")
-    
-    globals.screen.ids.toolbar.title = "Homework" #Switch title
 
     if len(data) == globals.HOMEWORK_LENGTH:
         return
@@ -124,3 +145,6 @@ def display_hw(*args):
                 "text" : "No homework!"
             }
         )
+    
+    globals.screen.ids.homework_screen_manager.transition = FadeTransition()
+    globals.screen.ids.homework_screen_manager.current = "HomeworkScreen"

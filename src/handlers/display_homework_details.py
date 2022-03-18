@@ -12,15 +12,11 @@ from util import english_date
 
 def display_homework_details(*args):
     Logger.info(f"Application: Displaying homework {args[0]}")
-
-    #Get homework data
-
-    hw_data = globals.API_CLIENT.get_homework()
     
     #SELECT * FROM hw WHERE id = args[0]
-    for hw in hw_data:
-        if hw["id"] == args[0]:
-            hw_data = hw
+    for homework in globals.HW_CACHE:
+        if homework["id"] == args[0]:
+            hw = homework
             break
         else: continue
     

@@ -24,6 +24,10 @@ from handlers import display_homework_tiles, display_activity, display_timetable
 import util
 import os, pathlib, json
 
+#Util screens
+
+Builder.load_file('views/kv/loading_circle_screen.kv')
+
 #Subscreens
 
 #Homework
@@ -56,7 +60,9 @@ class HomeworkDetailsScreen(Screen):
     pass
 
 class SplashScreen(Screen):
+    pass
 
+class LoadingCircleScreen(Screen):
     pass
 
 class MainApp(MDApp):
@@ -77,6 +83,7 @@ class MainApp(MDApp):
         globals.appearance_screen = AppearanceScreen(name="AppearanceScreen")
 
         globals.splash_screen = SplashScreen(name="SplashScreen")
+        globals.loading_circle_screen = LoadingCircleScreen(name="LoadingCircleScreen")
 
         globals.homework_details_screen = HomeworkDetailsScreen(name="HomeworkDetailsScreen")
 
@@ -89,10 +96,12 @@ class MainApp(MDApp):
         globals.screen_manager.add_widget(globals.licenses_screen)
         globals.screen_manager.add_widget(globals.appearance_screen)
         globals.screen_manager.add_widget(globals.splash_screen)
+        
         globals.screen.ids.homework_screen_manager.add_widget(globals.homework_details_screen)
+        globals.screen.ids.homework_screen_manager.add_widget(globals.loading_circle_screen)
 
         #Bind buttons to update screen
-        globals.screen.ids.homework_button.bind(on_tab_press=display_homework_tiles.display_hw)
+        globals.screen.ids.homework_button.bind(on_tab_press=display_homework_tiles.update_hw)
         globals.screen.ids.activity_button.bind(on_tab_press=display_activity.display_activity)
         globals.screen.ids.timetable_button.bind(on_tab_press=display_timetable.display_timetable)
 

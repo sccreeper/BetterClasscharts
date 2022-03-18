@@ -1,3 +1,5 @@
+#:import Clipboard kivy.core.clipboard.Clipboard
+#:import toast kivymd.toast.toast
 
 <SettingsScreen>
     MDBoxLayout:
@@ -29,16 +31,31 @@
 
                 text: root.student_name
             
-            MDLabel:
-                id: code_label
+            MDBoxLayout:
 
-                markup: True
-                font_style: "Subtitle1"
+                orientation: 'horizontal'
 
-                size_hint_y: 0.15
+                size_hint_y: 0.05
 
-                text: "[b]Code: [/b]" + root.student_code
-            
+                padding: [0, 0, 0, 16]
+
+                MDLabel:
+                    id: code_label
+
+                    markup: True
+                    font_style: "Subtitle1"
+
+                    size_hint_y: 0.15
+
+                    text: "[b]Code: [/b]" + root.student_code
+
+                MDIconButton:
+                    icon: 'content-copy'
+
+                    on_press: 
+                        Clipboard.copy(root.student_code)
+                        toast('Code copied to clipboard', duration=1)
+                
             
             ScrollView:
 

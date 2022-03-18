@@ -79,6 +79,7 @@ def show_settings_screen(*args):
     #Update information
 
     globals.screen_manager.get_screen("SettingsScreen").student_code = globals.CURRENT_CONFIG['code']
+    globals.screen_manager.get_screen("SettingsScreen").student_name = globals.API_CLIENT.student_info["data"]["name"]
 
     #Transition
     

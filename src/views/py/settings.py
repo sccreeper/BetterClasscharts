@@ -7,6 +7,7 @@ from handlers.settings import logout, show_about_screen, show_appearance_screen
 class SettingsScreen(Screen):
 
     student_code = StringProperty()
+    student_name = StringProperty()
 
     def logout(self, *args):
         logout()

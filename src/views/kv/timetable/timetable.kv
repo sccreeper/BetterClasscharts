@@ -1,0 +1,77 @@
+#Timetable Screen and layout.
+<Timetable>:
+    padding: [10, 10, 10, 10]
+
+    orientation: "vertical"
+
+    id: timetable
+
+    MDGridLayout:
+        size_hint_y: 0.15
+        
+        cols: 3 #5 days + arrows
+        rows: 1
+
+        spacing: [10, 0]
+
+        MDRoundFlatIconButton:
+            icon: "chevron-left"
+
+            on_press: root.date_left()
+
+            size_hint_y: 1.0
+
+        #Filler for when real UI is generated
+
+        MDGridLayout:
+
+            id: date_buttons
+            size_hint_x: 0.9
+
+            cols: 5
+            rows: 1
+
+            spacing: [15, 0]
+
+            DayTile:
+                id: date_0
+
+                display_day: "1"
+
+            DayTile:
+                id: date_1
+
+                display_day: "2"
+            
+            DayTile:
+                id: date_2
+
+                display_day: "3"
+
+            DayTile:
+                id: date_3
+
+                display_day: "4"
+            
+            DayTile:
+                id: date_4
+
+                display_day: "5"
+
+        MDRoundFlatIconButton:
+            icon: "chevron-right"
+
+            on_press: root.date_right()
+
+            size_hint_y: 1.0
+    
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+
+        MDList:
+            id: lesson_list
+
+
+
+

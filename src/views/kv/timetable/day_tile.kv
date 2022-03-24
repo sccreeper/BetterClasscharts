@@ -1,0 +1,30 @@
+#:import colors kivymd.color_definitions.colors
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import CURRENT_CONFIG globals.CURRENT_CONFIG
+
+<DayTile>:
+
+    padding: [5, 5, 5, 5]
+
+    size_hint_x: 0.5
+
+    canvas.before:
+        Color:
+            rgba: get_color_from_hex(colors[CURRENT_CONFIG["accent_name"]]["A200"]) if root.selected else get_color_from_hex(colors[CURRENT_CONFIG["accent_name"]]["600"])
+            #rgba: get_color_from_hex(colors["Purple"]["A200"]) if root.selected else get_color_from_hex(colors["Purple"]["600"])
+        Ellipse:
+            pos: self.pos
+            size: self.size
+            angle_start: 0
+            angle_end: 360
+
+    
+    MDLabel:
+        text: root.display_day
+
+        font_style: "H6"
+
+        halign: "center"
+        valign: "center"
+
+        

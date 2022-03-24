@@ -11,12 +11,17 @@ from kivy.clock import Clock
 
 from api.client import StudentClient
 
+#KV Imports
+
 from views.py import homework_view
 from views.py.login import LoginScreen
 from views.py.settings import SettingsScreen
 from views.py.about import AboutScreen, AboutItem, LicensesScreen
 from views.py.appearance import AppearanceScreen
 from views.py.activity import ActivityScreen
+from views.py.timetable.day_tile import DayTile
+from views.py.timetable.lesson_tile import LessonTile
+from views.py.timetable.timetable import Timetable
 
 import globals
 from handlers import display_homework_tiles, display_activity, display_timetable, display_homework_details, settings
@@ -36,6 +41,11 @@ Builder.load_file('views/kv/homework.kv')
 Builder.load_file('views/kv/homework_details.kv')
 Builder.load_file('views/kv/attachment_tile.kv')
 Builder.load_file('views/kv/homework_sorter.kv')
+
+#Timetable
+Builder.load_file('views/kv/timetable/day_tile.kv')
+Builder.load_file('views/kv/timetable/lesson_tile.kv')
+Builder.load_file('views/kv/timetable/timetable.kv')
 
 #Main screens
 

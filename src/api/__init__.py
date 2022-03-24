@@ -10,3 +10,4 @@ class ENDPOINT:
     LOGIN = "/apiv2student/login"
     HW_HAND_IN = "/apiv2student/homeworkticked/"
     ACTIVITY = "/apiv2student/activity/"
+    TIMETABLE = "/apiv2student/timetable/"

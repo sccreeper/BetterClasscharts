@@ -1,5 +1,7 @@
+from argparse import ArgumentError
+from datetime import date, datetime, timedelta
 from sys import path
-from typing import List, NamedTuple
+from typing import List, NamedTuple, Tuple
 import requests
 import json
 from collections import namedtuple
@@ -137,10 +139,39 @@ class StudentClient:
             return False
 
     
-    def get_timetable(self):
+    def get_timetable(self, date: date = None, date_range: Tuple[date] = None) -> List[dict]:
         if self.dummy_client: return False
 
-        pass
+        headers = {
+                "Authorization" : "Basic " + self.session_id
+        }
+        
+        if date_range == None: #Only get one date.
+
+            #Get data from endpoint
+
+            data = self.http_client.get(f"{CLASSCHARTS_URL}{ENDPOINT.TIMETABLE}{self.student_id}?date={date.year}-{date.month:02}-{date.day:02}", headers=headers).text
+            data = json.loads(data)
+
+            return data["data"]
+
+        else: #Request multiple dates.
+            
+            if len(date_range) != 2:
+                raise ArgumentError("date_range must be length of 2!")
+            else:
+                days = []
+
+                for date in range((date_range[1]-date_range[0]).days):
+
+                    d = date_range[0] + timedelta(days=date)
+                    
+                    data = self.http_client.get(f"{CLASSCHARTS_URL}{ENDPOINT.TIMETABLE}{self.student_id}?date={d.year}-{d.month:02}-{d.day:02}", headers=headers).text
+                    days.append(list(json.loads(data)["data"])) # list() - Make the array 2D. Not required but there for readability.
+                
+                return days
+
+        raise AttributeError("date and date_range are equal to None!")
     
     def get_activity(self) -> bool:
 

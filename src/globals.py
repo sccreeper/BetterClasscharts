@@ -41,7 +41,7 @@ DEFAULT_CONFIG = {
 
 }
 
-CURRENT_CONFIG = None
+CURRENT_CONFIG = DEFAULT_CONFIG #So certain UI elements load.
 
 ACCENT_COLOURS = [ #Used for displaying colours in UI
 

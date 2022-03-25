@@ -8,9 +8,9 @@
 
     size_hint_x: 0.5
 
-    canvas.before:
+    canvas:
         Color:
-            rgba: get_color_from_hex(colors[CURRENT_CONFIG["accent_name"]]["A200"]) if root.selected else get_color_from_hex(colors[CURRENT_CONFIG["accent_name"]]["600"])
+            rgba: root.background_colour
             #rgba: get_color_from_hex(colors["Purple"]["A200"]) if root.selected else get_color_from_hex(colors["Purple"]["600"])
         Ellipse:
             pos: self.pos

@@ -1,3 +1,4 @@
+from datetime import datetime
 from api.client import StudentClient
 from kivy.uix.screenmanager import Screen
 
@@ -59,3 +60,7 @@ ACCENT_COLOURS = [ #Used for displaying colours in UI
 SHOW_HANDED_IN = True
 SHOW_DUE = True
 HW_CACHE = None #Cache the homework locally to avoid requesting it from the API each time.
+
+#Timtable
+START_DAY = datetime.now()
+SELECTED_DAY = datetime.now()

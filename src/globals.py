@@ -64,3 +64,7 @@ HW_CACHE = None #Cache the homework locally to avoid requesting it from the API 
 #Timtable
 START_DAY = datetime.now()
 SELECTED_DAY = datetime.now()
+TIMETABLE_CACHE = None #Cache for the currently displayed days.
+
+SELECTED_COLOUR = "A200"
+UNSELECTED_COLOUR = "600"

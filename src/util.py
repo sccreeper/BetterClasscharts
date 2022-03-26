@@ -47,6 +47,18 @@ DAY = [ #Works provided that Monday is 0, Sunday is 6
     "Sunday"
 ]
 
+SHORT_DAY = [
+
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thur",
+    "Fri",
+    "Sat",
+    "Sun"
+
+]
+
 #Add extra types to mimetypes module
 
 #Microsoft (Common ones)

@@ -1,11 +1,11 @@
 import globals
 from datetime import timedelta
-from datetime import datetime
+from datetime import datetime, date
 
 from kivymd.uix.label import MDLabel
 
 from views.py.timetable.lesson_tile import LessonTile
-from util import get_selected_background_colour
+from util import get_selected_background_colour, SHORT_DAY
 
 def display_timetable(*args):
     globals.CURRENT_TAB = "timetable"
@@ -21,8 +21,8 @@ def display_timetable(*args):
     d = 0
 
     for child in reversed(globals.screen.ids.timetable.ids.date_buttons.children):
-        
-        child.display_day = str(current_day.day)
+
+        child.display_day = f"{current_day.day}\n{SHORT_DAY[current_day.weekday()]}"
         child.background_normal = get_selected_background_colour("normal")
         child.background_down = get_selected_background_colour("down")
         child.date = current_day

@@ -17,7 +17,7 @@ def display_timetable(*args):
 
     #Update on top row
 
-    current_day = datetime.now()
+    current_day = globals.START_DAY
     d = 0
 
     for child in reversed(globals.screen.ids.timetable.ids.date_buttons.children):

@@ -1,8 +1,16 @@
 import globals
 from datetime import timedelta
 from datetime import datetime, date
+from threading import Thread
+from functools import partial
 
 from kivymd.uix.label import MDLabel
+from kivymd.uix.spinner import MDSpinner
+from kivymd.uix.floatlayout import MDFloatLayout
+from kivy.metrics import dp
+
+from kivy.clock import Clock
+
 
 from views.py.timetable.lesson_tile import LessonTile
 from util import get_selected_background_colour, SHORT_DAY
@@ -10,10 +18,6 @@ from util import get_selected_background_colour, SHORT_DAY
 def display_timetable(*args):
     globals.CURRENT_TAB = "timetable"
     globals.screen.ids.toolbar.title = "Timetable"
-
-    #Get data from API
-    timetable = globals.API_CLIENT.get_timetable(date_range=(globals.START_DAY, globals.START_DAY + timedelta(days=5)))
-    globals.TIMETABLE_CACHE = timetable
 
     #Update on top row
 
@@ -35,9 +39,38 @@ def display_timetable(*args):
     for child in globals.screen.ids.timetable.ids.date_buttons.children:
         child.state = "down"
     
-    display_tt_date(0)
+    #Show spinner and spawn thread.
+
+    globals.screen.ids.timetable.ids.lesson_list.clear_widgets()
+    
+    globals.screen.ids.timetable.ids.lesson_list.add_widget(
+        MDFloatLayout()
+    )
+
+    globals.screen.ids.timetable.ids.lesson_list.children[0].add_widget(
+
+        MDSpinner(
+            size_hint=(None, None),
+            size=(dp(46), dp(46)),
+            pos_hint={'center_x': .5, 'center_y': .5},
+            active=True
+        )
+
+    )
+
+    Thread(target=get_api_data).start()
+    
+
+def get_api_data(*args):
+    #Get data from API
+    timetable = globals.API_CLIENT.get_timetable(date_range=(globals.START_DAY, globals.START_DAY + timedelta(days=5)))
+    globals.TIMETABLE_CACHE = timetable
+
+    Clock.schedule_once(partial(display_tt_date, 0), 0)
 
 def display_tt_date(day_index, *args):
+    if globals.TIMETABLE_CACHE == None: return
+
     #Clear children
     globals.screen.ids.timetable.ids.lesson_list.clear_widgets()
 

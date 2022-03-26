@@ -1,9 +1,7 @@
 import globals
-from datetime import date, timedelta
+from datetime import timedelta
 from datetime import datetime
 
-from kivymd.color_definitions import colors
-from kivy.utils import get_color_from_hex
 from kivymd.uix.label import MDLabel
 
 from views.py.timetable.lesson_tile import LessonTile
@@ -25,13 +23,17 @@ def display_timetable(*args):
     for child in reversed(globals.screen.ids.timetable.ids.date_buttons.children):
         
         child.display_day = str(current_day.day)
-        child.selected = True if current_day.date() == globals.SELECTED_DAY.date() else False
-        child.background_colour = get_selected_background_colour(child)
+        child.background_normal = get_selected_background_colour("normal")
+        child.background_down = get_selected_background_colour("down")
         child.date = current_day
         child.day_index = d
 
         current_day += timedelta(days=1)
         d += 1
+
+    #Force the update of the background.
+    for child in globals.screen.ids.timetable.ids.date_buttons.children:
+        child.state = "down"
     
     display_tt_date(0)
 

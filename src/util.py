@@ -95,9 +95,9 @@ def english_date(_date: str, is_due=False) -> str:
     return due_date_string
 
 #Here because used very widely.
-def get_selected_background_colour(widget):
+def get_selected_background_colour(is_down):
 
-    if widget.selected:
+    if is_down == "down":
         return get_color_from_hex(colors[globals.CURRENT_CONFIG["accent_name"]]["900"]) if globals.CURRENT_CONFIG["dark_mode"] else get_color_from_hex(colors[globals.CURRENT_CONFIG["accent_name"]]["500"])
     else:
         return get_color_from_hex(colors["Gray"]["800"]) if globals.CURRENT_CONFIG["dark_mode"] else get_color_from_hex(colors["Gray"]["400"])

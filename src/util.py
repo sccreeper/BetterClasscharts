@@ -2,6 +2,12 @@ from dataclasses import dataclass
 import mimetypes
 from datetime import date, datetime
 
+from kivymd.color_definitions import colors
+from kivy.utils import get_color_from_hex
+
+import globals
+
+
 def read_file(path):
     with open(path, 'r') as file:
         return file.read()
@@ -39,6 +45,18 @@ DAY = [ #Works provided that Monday is 0, Sunday is 6
     "Friday",
     "Saturday"
     "Sunday"
+]
+
+SHORT_DAY = [
+
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thur",
+    "Fri",
+    "Sat",
+    "Sun"
+
 ]
 
 #Add extra types to mimetypes module
@@ -87,3 +105,11 @@ def english_date(_date: str, is_due=False) -> str:
         due_date_string = f"{'[color=ff0000]' if is_due and LATE else ''}{DAY[due_date.weekday()]} {due_date.day}{friendly_date(due_date.day)} {MONTH[due_date.month - 1]} {'' if due_date.year == time.year else due_date.year}{'[/color]' if is_due and LATE else ''}"
 
     return due_date_string
+
+#Here because used very widely.
+def get_selected_background_colour(is_down):
+
+    if is_down == "down":
+        return get_color_from_hex(colors[globals.CURRENT_CONFIG["accent_name"]]["900"]) if globals.CURRENT_CONFIG["dark_mode"] else get_color_from_hex(colors[globals.CURRENT_CONFIG["accent_name"]]["500"])
+    else:
+        return get_color_from_hex(colors["Gray"]["800"]) if globals.CURRENT_CONFIG["dark_mode"] else get_color_from_hex(colors["Gray"]["400"])

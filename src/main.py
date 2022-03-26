@@ -1,4 +1,6 @@
-from sys import path
+import os
+os.environ["KCFG_KIVY_LOG_LEVEL"] = "debug"
+
 from kivy.lang import Builder
 from kivy.uix.screenmanager import NoTransition, Screen, ScreenManager, SlideTransition
 from kivymd.uix.label import MDLabel

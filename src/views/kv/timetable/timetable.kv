@@ -17,18 +17,18 @@
 
         MDIconButton:
             icon: "chevron-left"
-            icon_size: "64sp"
+            user_font_size: "32dp"
 
             on_press: root.date_left()
 
-            size_hint_y: 1.0
+            #size_hint_y: 1.0
 
         #Filler for when real UI is generated
 
         MDGridLayout:
 
             id: date_buttons
-            size_hint_x: 0.9
+            col_default_width: 32
 
             cols: 5
             rows: 1
@@ -62,11 +62,11 @@
 
         MDIconButton:
             icon: "chevron-right"
-            icon_size: "64sp"
+            user_font_size: "32dp"
 
             on_press: root.date_right()
 
-            size_hint_y: 1.0
+            #size_hint_y: 1.0
     
     ScrollView:
         do_scroll_x: False

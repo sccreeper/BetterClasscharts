@@ -11,6 +11,9 @@
 - [Information](#information)
 - [Supported Platforms](#supported-platforms)
 - [Building](#building)
+  - [Setup](#setup)
+    - [Using `build.sh`](#using-buildsh)
+    - [Manually](#manually)
 - [Notes](#notes)
 
 ## Information
@@ -50,7 +53,7 @@ For other platforms see the [Kivy docs](https://kivy.org/doc/stable/guide/packag
 - A phone running Android 5.0 or later
 - Python 3.10
 
-**Steps**
+### Setup
 
 Install [Buildozer](https://github.com/kivy/buildozer)
 ```
@@ -73,15 +76,37 @@ cd ClasschartsApp
 pip install -r requirements.txt
 ```
 
+Then use `build.sh` or the Buildozer command to install the app on the device.
+
+#### Using `build.sh`
+
+Run
+
+`./build.sh debug`
+
+**or**
+
+`./build.sh release`
+
+Running `build.sh` with the `release` option requires [uber-apk-signer](https://github.com/patrickfav/uber-apk-signer).
+
+#### Manually
+
 Plug the phone into the computer and enable USB debugging.
 
-Compile the app and deploy it.<sup>3</sup>
+Compile the app and install it.<sup>3</sup>
 ```
 buildozer android debug deploy run
 ```
+**or**
+```
+buildozer android release
+```
+
+And then sign the APK and then install it.
 
 ## Notes
 
-<sup>1</sup>Any system that uses the `apt` package manager should work.
+<sup>1</sup>Any Debian based system should work.
 
 <sup>3</sup>For a release build, replace `debug` with `release`

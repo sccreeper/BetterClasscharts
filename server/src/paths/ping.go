@@ -1,5 +1,7 @@
 package paths
 
+// Route for seeing if server is up
+
 import (
 	"net/http"
 
@@ -8,6 +10,6 @@ import (
 
 func PingHandler(ctx *gin.Context) {
 	
-	ctx.JSON(http.StatusOK, gin.H{"message" : "ping",})
+	ctx.JSON(http.StatusOK, "OK")
 
 }

@@ -13,6 +13,7 @@ func main() {
 	r := gin.Default()
 
 	r.GET("/ping", paths.PingHandler)
+	r.POST("/login", paths.LoginHandler)
 
 	r.Run()
 

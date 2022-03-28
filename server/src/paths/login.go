@@ -8,14 +8,16 @@ import (
 	"net/http"
 	"net/url"
 	"sccreeper/bcc-cache-server/src/endpoints"
+	"sccreeper/bcc-cache-server/src/shared"
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 type LoginData struct {
 
-	ID int `json:"id"`
+	ID string `json:"id"`
 	Name string `json:"name"`
 	
 }
@@ -39,6 +41,18 @@ type HasCodeResponse struct {
 
 type HasCodeResponseData struct {
 	HasDob bool `json:"has_dob"`
+}
+
+type OwnLoginResponse struct {
+
+	Success int `json:"success"`
+
+	Data OwnLoginResponseData
+
+}
+
+type OwnLoginResponseData struct {
+	Response string `json:"response"`
 }
 
 func LoginHandler(ctx *gin.Context) {
@@ -87,9 +101,30 @@ func LoginHandler(ctx *gin.Context) {
 
 		json.Unmarshal([]byte(body), &loginResp)
 
-		println(loginResp.Success)
-		println(string(body))
-		println(dob)
+		serverSessionID := uuid.New()
+
+		shared.LoggedInUsers[serverSessionID.String()] = shared.UserInfo{
+
+			Cookies: resp.Cookies(),
+			ClasschartsSessionID: loginResp.Meta.SessionID,
+			OwnSessionID: serverSessionID.String(),
+
+			StudentID: loginResp.Data.ID,
+			StudentDOB: dob,
+
+		}
+
+		clientResponse := OwnLoginResponse {
+
+			Success: 1,
+			Data: OwnLoginResponseData{
+				Response: serverSessionID.String(),
+			},
+		}
+
+		respJSON, _ := json.Marshal(clientResponse)
+
+		ctx.Data(http.StatusOK, "application/json", respJSON)
 
 	} else {
 

@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  bcc-sync:
+    build: .
+    ports: 
+     - "5003:80"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    
+    container_name: bcc-sync
+    restart: unless-stopped
+
+    environment:
+      - GIN_MODE=release
+      - PORT=80

@@ -38,7 +38,7 @@ version = 0.1
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
 #Package versions removed from libraries that are deps of other libs
-requirements = python3,kivy==2.1.0,https://github.com/kivymd/KivyMD/archive/2bde67b86ba35cfea7a66aa22404b718cc60e844.zip,requests==2.26.0,pillow,urllib3,chardet,idna,certifi,pyOpenSSL,cryptography,Brotli,cssutils==2.3.0,pyjnius
+requirements = python3,kivy==2.1.0,https://github.com/kivymd/KivyMD/archive/5a5db42ac8b526bc4bebdecf71b1ef33e8e4537b.zip,requests==2.26.0,pillow,urllib3,chardet,idna,certifi,pyOpenSSL,cryptography,Brotli,cssutils==2.3.0,pyjnius
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes

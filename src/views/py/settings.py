@@ -2,7 +2,7 @@ from cmath import log
 from kivy.uix.screenmanager import Screen
 from kivy.properties import StringProperty
 
-from handlers.settings import logout, show_about_screen, show_appearance_screen
+from handlers.settings import logout, show_about_screen, show_appearance_screen, show_sync_screen
 
 class SettingsScreen(Screen):
 
@@ -15,5 +15,7 @@ class SettingsScreen(Screen):
         show_about_screen()
     def show_appearance_screen(self, *args):
         show_appearance_screen()
+    def show_sync_screen(self, *args):
+        show_sync_screen()
     
 

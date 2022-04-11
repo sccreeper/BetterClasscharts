@@ -20,6 +20,7 @@ settings_screen = None
 about_screen = None
 licenses_screen = None
 appearance_screen = None
+sync_screen = None
 
 splash_screen = None
 loading_circle_screen = None

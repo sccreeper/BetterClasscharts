@@ -1,0 +1,43 @@
+<SyncScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+
+        id: about_screen
+
+        MDToolbar:
+            title: "Sync"
+            id: settings_toolbar
+
+            type: "top"
+
+            left_action_items: [["arrow-left", lambda x: root.go_back()]]
+        
+        MDBoxLayout:
+
+            padding: [16, 16, 16, 16]
+
+            orientation: 'vertical'
+
+            MDBoxLayout:
+                orientation: "horizontal"
+
+                MDLabel:
+                    text: "Enable sync"
+
+                MDSwitch:
+                    id: sync_switch
+
+                    on_press: root.enable_sync()
+
+                
+            MDTextField:
+                hint_text: "Server URL"
+                disabled: not sync_switch.active
+
+            MDRaisedButton:
+                text: "Connect"
+                disabled: not sync_switch.active
+
+                on_press: root.start_sync()
+
+            

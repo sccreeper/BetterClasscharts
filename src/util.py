@@ -43,7 +43,7 @@ DAY = [ #Works provided that Monday is 0, Sunday is 6
     "Wednesday",
     "Thursday",
     "Friday",
-    "Saturday"
+    "Saturday",
     "Sunday"
 ]
 
@@ -71,6 +71,8 @@ mimetypes.add_type("application/vnd.ms-excel", ".xlsx")
 mimetypes.add_type("application/vnd.oasis.opendocument.text", "odt")
 mimetypes.add_type("application/vnd.oasis.opendocument.presentation", "odp")
 mimetypes.add_type("application/vnd.oasis.opendocument.spreadsheet", "ods")
+
+#Dates
 
 def friendly_date(date: int) -> str:
     """

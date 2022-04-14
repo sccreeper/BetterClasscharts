@@ -73,3 +73,4 @@ UNSELECTED_COLOUR = "600"
 #Sync server
 
 SYNC_PROTOCOL = None
+SYNC_CLIENT = None

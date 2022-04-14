@@ -3,13 +3,8 @@ package paths
 
 import (
 	"encoding/json"
-	"fmt"
-	"io"
 	"net/http"
-	"net/url"
-	"sccreeper/bcc-cache-server/src/endpoints"
 	"sccreeper/bcc-cache-server/src/shared"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -47,69 +42,28 @@ type OwnLoginResponse struct {
 
 	Success int `json:"success"`
 
-	Data OwnLoginResponseData
+	Data OwnLoginResponseData `json:"data"`
 
 }
 
 type OwnLoginResponseData struct {
-	Response string `json:"response"`
+	SessionID string `json:"session_id"`
 }
 
 func LoginHandler(ctx *gin.Context) {
 
-	client := http.Client{}
-
 	code := ctx.PostForm("code")
 	dob := ctx.PostForm("dob")
-
-	// See if code is valid on ClassCharts
-
-	checkCodeRequest, _ := http.NewRequest("GET", fmt.Sprintf("%s%s%s", endpoints.Domain, endpoints.CheckCode, code), nil)
-	checkCodeRequest.Header.Set("User-Agent", "Mozilla/5.0")
-
-	resp, _ := client.Do(checkCodeRequest)
-
-	var codeResp HasCodeResponse
-
-	body, _ := io.ReadAll(resp.Body)
-
-	json.Unmarshal([]byte(body), &codeResp)
-
-	println(codeResp.Data.HasDob)
-
-	if codeResp.Data.HasDob{
 		
-		//Set POST request to cc-servers to get session token.
-
-		loginForm := url.Values{}
-
-		loginForm.Add("_method", "POST")
-		loginForm.Add("code", code)
-		loginForm.Add("dob", dob)
-		loginForm.Add("remember_me", "1")
-		loginForm.Add("recaptcha-token", "no-token-available")
-
-		loginReq, _ := http.NewRequest("POST", fmt.Sprintf("%s%s", endpoints.Domain, endpoints.Login), strings.NewReader(loginForm.Encode()))
-		loginReq.Header.Add("User-Agent", "Mozilla/5.0")
-		loginReq.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-
-		resp, _ := client.Do(loginReq)
-
-		var loginResp LoginResponse
-
-		body, _ := io.ReadAll(resp.Body)
-
-		json.Unmarshal([]byte(body), &loginResp)
+		//Return user session ID
 
 		serverSessionID := uuid.New()
 
 		shared.LoggedInUsers[serverSessionID.String()] = shared.UserInfo{
 
-			Cookies: resp.Cookies(),
-			ClasschartsSessionID: loginResp.Meta.SessionID,
 			OwnSessionID: serverSessionID.String(),
 
-			StudentID: loginResp.Data.ID,
+			StudentCode: code,
 			StudentDOB: dob,
 
 		}
@@ -118,19 +72,12 @@ func LoginHandler(ctx *gin.Context) {
 
 			Success: 1,
 			Data: OwnLoginResponseData{
-				Response: serverSessionID.String(),
+				SessionID: serverSessionID.String(),
 			},
 		}
 
 		respJSON, _ := json.Marshal(clientResponse)
 
 		ctx.Data(http.StatusOK, "application/json", respJSON)
-
-	} else {
-
-		ctx.String(http.StatusInternalServerError, "cc-error")
-
-	}
-
 
 }

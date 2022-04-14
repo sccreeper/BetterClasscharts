@@ -6,6 +6,7 @@ from kivy.logger import Logger
 
 import globals
 from api import SYNC_ENDPOINT, HTTP_PROTOCOLS
+from api.sync_client import SyncClient
 
 #Called when sync is changed/started
 def start_sync():
@@ -29,6 +30,7 @@ def start_sync():
             loaded = json.loads(r.text)
 
             if loaded["success"] == 1:
+                globals.SYNC_PROTOCOL = protocol
                 init_sync()
             else:
                 pass #TODO: Error handle this
@@ -39,6 +41,12 @@ def start_sync():
 def init_sync():
     
     Logger.info("Sync API: Connecting to sync server...")
+
+    globals.SYNC_CLIENT = SyncClient(globals.CURRENT_CONFIG["code"], "{d[2]}-{d[1]}-{d[0]}".format(d=globals.CURRENT_CONFIG["dob"]))
+
+    globals.SYNC_CLIENT.login()
+
+    Logger.info("Sync API: Connection to sync server successful!")
 
 
 def enable_sync(state):

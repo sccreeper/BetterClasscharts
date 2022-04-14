@@ -14,5 +14,6 @@ class ENDPOINT:
 
 class SYNC_ENDPOINT:
     PING = "/ping"
+    LOGIN = "/login"
 
 HTTP_PROTOCOLS = ["http", "https"]

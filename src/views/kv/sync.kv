@@ -20,6 +20,7 @@
 
             MDBoxLayout:
                 orientation: "horizontal"
+                size_hint_y: 0.15
 
                 MDLabel:
                     text: "Enable sync"
@@ -30,14 +31,34 @@
                     on_press: root.enable_sync()
 
                 
+
+                
             MDTextField:
                 hint_text: "Server URL"
+                id: server_url
                 disabled: not sync_switch.active
 
+            MDLabel:
+                id: sync_status_label
+                text: ""
+
+                markup: True
+                
+                size_hint_y: 0.15
+
             MDRaisedButton:
-                text: "Connect"
+                text: "Start sync"
                 disabled: not sync_switch.active
 
                 on_press: root.start_sync()
+
+                size_hint_y: 0.15
+
+            
+            #Label for spacing
+            MDLabel:
+                text: ""
+                
+                size_hint_y: 0.5
 
             

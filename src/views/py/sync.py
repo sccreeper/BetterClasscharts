@@ -1,5 +1,7 @@
 from kivy.uix.screenmanager import Screen, SlideTransition
 
+from handlers.sync import start_sync, enable_sync
+
 import globals
 
 class SyncScreen(Screen):
@@ -12,10 +14,10 @@ class SyncScreen(Screen):
         globals.screen_manager.current = "SettingsScreen"
 
     def enable_sync(self, *args):
-        pass
+        enable_sync(not self.ids.sync_switch.active)
 
     def start_sync(self, *args):
-        pass
+        start_sync()
 
 
 

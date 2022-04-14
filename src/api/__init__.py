@@ -11,3 +11,8 @@ class ENDPOINT:
     HW_HAND_IN = "/apiv2student/homeworkticked/"
     ACTIVITY = "/apiv2student/activity/"
     TIMETABLE = "/apiv2student/timetable/"
+
+class SYNC_ENDPOINT:
+    PING = "/ping"
+
+HTTP_PROTOCOLS = ["http", "https"]

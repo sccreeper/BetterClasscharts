@@ -1,5 +1,5 @@
 from datetime import datetime
-from api.client import StudentClient
+from api.student_client import StudentClient
 from kivy.uix.screenmanager import Screen
 
 # Globals
@@ -69,3 +69,7 @@ TIMETABLE_CACHE = None #Cache for the currently displayed days.
 
 SELECTED_COLOUR = "A200"
 UNSELECTED_COLOUR = "600"
+
+#Sync server
+
+SYNC_PROTOCOL = None

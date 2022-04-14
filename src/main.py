@@ -1,5 +1,5 @@
 import os
-os.environ["KCFG_KIVY_LOG_LEVEL"] = "debug"
+#os.environ["KCFG_KIVY_LOG_LEVEL"] = "debug"
 
 from kivy.lang import Builder
 from kivy.uix.screenmanager import NoTransition, Screen, ScreenManager, SlideTransition
@@ -11,7 +11,7 @@ from kivy.utils import platform
 from kivy.logger import Logger
 from kivy.clock import Clock
 
-from api.client import StudentClient
+from api.student_client import StudentClient
 
 #KV Imports
 

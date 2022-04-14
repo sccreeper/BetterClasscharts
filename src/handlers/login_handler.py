@@ -4,7 +4,7 @@ import os
 from kivy.logger import Logger
 
 import globals
-from api.client import StudentClient, check_code
+from api.student_client import StudentClient, check_code
 import util
 
 def login():

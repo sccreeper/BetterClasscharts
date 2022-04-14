@@ -3,3 +3,4 @@ git+https://github.com/kivymd/KivyMD@5a5db42ac8b526bc4bebdecf71b1ef33e8e4537b
 requests==2.27.1
 cssutils==2.3.0
 pyjnius==1.4.1
+validators==0.18.2

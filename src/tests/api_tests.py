@@ -2,7 +2,7 @@ import sys
 
 sys.path.append("..")
 
-from src.api.client import StudentClient
+from src.api.student_client import StudentClient
 
 if __name__ == "__main__":
 

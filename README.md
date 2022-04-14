@@ -52,6 +52,7 @@ For other platforms see the [Kivy docs](https://kivy.org/doc/stable/guide/packag
 - Ubuntu 20.04 or later<sup>1</sup>
 - A phone running Android 5.0 or later
 - Python 3.10
+- [Poetry](https://python-poetry.org/)
 
 ### Setup
 
@@ -73,7 +74,12 @@ Install the project requirements
 
 ```
 cd ClasschartsApp
-pip install -r requirements.txt
+poetry install
+```
+
+See if everything has installed correctly
+```
+poetry run python3 src/main.py
 ```
 
 Then use `build.sh` or the Buildozer command to install the app on the device.

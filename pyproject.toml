@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "BetterClasscharts"
+version = "0.1.0"
+description = "An alternative to the Classcharts student app."
+authors = ["Oscar Peace <oscar@oscarcp.net>"]
+license = "GPLv3"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+kivy = "2.1.0"
+kivymd = {git = "https://github.com/kivymd/KivyMD", rev = "5a5db42ac8b526bc4bebdecf71b1ef33e8e4537b"}
+requests = "2.27.1"
+pyjnius = "1.4.1"
+validators = "0.18.2"
+cssutils = "2.3.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

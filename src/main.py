@@ -24,7 +24,6 @@ from views.py.activity import ActivityScreen
 from views.py.timetable.day_tile import DayTile
 from views.py.timetable.lesson_tile import LessonTile
 from views.py.timetable.timetable import Timetable
-from views.py.sync import SyncScreen
 
 import globals
 from handlers import display_homework_tiles, display_activity, display_timetable, display_homework_details, settings
@@ -58,7 +57,6 @@ Builder.load_file('views/kv/main.kv')
 Builder.load_file('views/kv/settings.kv')
 Builder.load_file('views/kv/about.kv')
 Builder.load_file('views/kv/appearance.kv')
-Builder.load_file('views/kv/sync.kv')
 
 Builder.load_file('views/kv/splash_screen.kv')
 
@@ -97,7 +95,6 @@ class MainApp(MDApp):
         globals.about_screen = AboutScreen(name="AboutScreen")
         globals.licenses_screen = LicensesScreen(name="LicensesScreen")
         globals.appearance_screen = AppearanceScreen(name="AppearanceScreen")
-        globals.sync_screen = SyncScreen(name="SyncScreen")
 
         globals.splash_screen = SplashScreen(name="SplashScreen")
         globals.loading_circle_screen = LoadingCircleScreen(name="LoadingCircleScreen")
@@ -112,7 +109,6 @@ class MainApp(MDApp):
         globals.screen_manager.add_widget(globals.about_screen)
         globals.screen_manager.add_widget(globals.licenses_screen)
         globals.screen_manager.add_widget(globals.appearance_screen)
-        globals.screen_manager.add_widget(globals.sync_screen)
         globals.screen_manager.add_widget(globals.splash_screen)
         
         globals.screen.ids.homework_screen_manager.add_widget(globals.homework_details_screen)

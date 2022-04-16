@@ -122,7 +122,3 @@ def show_licenses_screen(*args):
     
     globals.screen_manager.transition = SlideTransition(direction="left", duration=0.25)
     globals.screen_manager.current = "LicensesScreen"
-
-def show_sync_screen(*args):
-    globals.screen_manager.transition = SlideTransition(direction="left", duration=0.25)
-    globals.screen_manager.current = "SyncScreen"

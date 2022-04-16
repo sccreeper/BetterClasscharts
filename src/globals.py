@@ -20,7 +20,6 @@ settings_screen = None
 about_screen = None
 licenses_screen = None
 appearance_screen = None
-sync_screen = None
 
 splash_screen = None
 loading_circle_screen = None
@@ -69,8 +68,3 @@ TIMETABLE_CACHE = None #Cache for the currently displayed days.
 
 SELECTED_COLOUR = "A200"
 UNSELECTED_COLOUR = "600"
-
-#Sync server
-
-SYNC_PROTOCOL = None
-SYNC_CLIENT = None

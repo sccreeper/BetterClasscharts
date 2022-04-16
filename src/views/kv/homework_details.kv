@@ -12,7 +12,7 @@
 
         rows: 2
 
-        height: (len(root.hw_description) / 80) * 14
+        height: 1.0
         width: 1.0
         # cols: 1
 
@@ -116,28 +116,25 @@
 
                     #padding: [64, 0]
        
-        ScrollView:
-        
+        RecycleView:
+
+            id: hw_description
+
+            key_viewclass: 'viewclass'
+            key_size: 'height'
+
             size_hint_y: 0.5
 
-            do_scroll_y: True
-            do_scroll_x: False
+            data: root.hw_data
 
-            scroll_timeout: 250
-            scroll_distance: 20
+            RecycleBoxLayout:
+                spacing: 16
 
-
-            MDLabel:
-                
-                size_hint: 1.0, None
-                size: self.texture_size
-
-                markup: True
-
-                on_ref_press: root.open_link(*args)
-
-                text: root.hw_description
-                valign: 'middle'
-                font_style: 'Body1'
+                padding: dp(16)
+                default_size: None, dp(48)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'
         
 

@@ -10,7 +10,6 @@ from handlers import open_url
 
 class HomeworkDetailsView(MDBoxLayout):
     hw_title = StringProperty()
-    hw_description = StringProperty()
     
     hw_due = StringProperty()
     hw_set = StringProperty()
@@ -22,9 +21,7 @@ class HomeworkDetailsView(MDBoxLayout):
     desc_size_hint = ListProperty()
 
     attachment_data = ListProperty()
-
-    def open_link(self, _instance, url):
-        open_url.launch_webbrowser(_instance, url)
+    hw_data = ListProperty()
 
     def hand_in_hw(self, checkbox, value):
         
@@ -37,7 +34,3 @@ class HomeworkDetailsView(MDBoxLayout):
             toast("Homework handed in!")
         else:
             toast("There was an error.")
-
-
-
-

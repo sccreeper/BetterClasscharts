@@ -1,13 +1,19 @@
+from ast import Bytes
 from kivy.logger import Logger
 from kivy.uix.screenmanager import SlideTransition
+from kivy.core.image import Image as KvCoreImage
+from kivy.uix.image import Image as KvUIImage
+
 from views.py.homework_details import HomeworkDetailsView
 from views.py.attachment_tile import AttachmentTile
 
-import mimetypes, os
+import mimetypes, os, io
+from base64 import b64decode, b64encode
+from PIL import Image
 
 import globals
 from handlers import open_url
-from handlers.desc_parser import Parser
+from handlers.desc_parser import Parser, NORMAL_STRING_DATA, IMAGE_STRING_DATA
 from util import english_date
 
 def display_homework_details(*args):
@@ -28,7 +34,7 @@ def display_homework_details(*args):
 
     #Set widgets on screen
 
-    globals.screen.ids.homework_screen_manager.get_screen("HomeworkDetailsScreen").clear_widgets() #Clear all children
+    globals.homework_details_screen.clear_widgets() #Clear all children
 
     globals.screen.ids.toolbar.left_action_items = [["arrow-left", go_back]]
 
@@ -98,12 +104,63 @@ def display_homework_details(*args):
 
     #print(len(attachment_data))
 
+    #Assemble the HW description
+
+    hw_desc_data = []
+
+    for item in hw_description:
+
+        match item[0]:
+            case "0": #Normal string data
+                hw_desc_data.append(
+                    {
+                        "viewclass" : "MDLabel",
+                        "text" : item[1:-1],
+                        "markup" : True,
+                        "on_ref_press" : open_link
+
+                    }
+                )
+            case "1": #Normal image data. Thanks to https://stackoverflow.com/a/45123730/7345078 and https://stackoverflow.com/a/45123730/7345078
+
+                base64_uri = item[1:-1].split(",")[1] + "=="
+                base64_bytes = b64decode(base64_uri)
+
+                
+                data = io.BytesIO(base64_bytes)
+                img = Image.open(data)
+
+                display_data = io.BytesIO()
+                img.save(display_data, format="png")
+
+                display_data.seek(0)
+
+                CI = KvCoreImage(io.BytesIO(display_data.read()), ext='png')
+
+                UIImage = KvUIImage()
+
+                UIImage.texture = CI.texture
+
+                hw_desc_data.append(
+                    {
+                        "viewclass" : "Image",
+                        "texture" : UIImage.texture,
+                        "size" : UIImage.size
+                    }
+                )
+
+
+            case _:
+                continue
+
+    #Clear attachments and hw desc.
+
     globals.homework_details_screen.add_widget(
 
         HomeworkDetailsView(
             hw_title = hw["title"],
             
-            hw_description = hw_description,
+            hw_data = hw_desc_data,
             desc_size_hint = (1.0, 1.0),
 
             hw_set = "Set: " + english_date(hw["issue_date"]),
@@ -121,6 +178,7 @@ def display_homework_details(*args):
 
     #Add hw attachment.
     globals.homework_details_screen.children[0].ids.attachments.refresh_from_data()
+    globals.homework_details_screen.children[0].ids.hw_description.refresh_from_data()
 
     #print(globals.homework_details_screen.children[0].ids.attachments.data)
 
@@ -145,3 +203,8 @@ def go_back(*args):
     #Switch back to main screen
     globals.screen.ids.homework_screen_manager.transition = SlideTransition(direction="right",duration=0.25)
     globals.screen.ids.homework_screen_manager.current = "HomeworkScreen"
+
+#For URLs in HW desc.
+def open_link(url):
+
+    open_url.launch_webbrowser(url)

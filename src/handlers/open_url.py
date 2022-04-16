@@ -28,6 +28,6 @@ if platform == 'android':
 
     webbrowser.register('android', AndroidBrowser, None)
 
-def launch_webbrowser(instance, url):
+def launch_webbrowser(url):
     
     webbrowser.open(url)

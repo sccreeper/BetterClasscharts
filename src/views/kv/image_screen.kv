@@ -1,0 +1,13 @@
+<ImageScreen>:
+    FloatLayout:
+        Image:
+
+            texture: root.image_data
+            pos: (0,0)
+
+        MDIconButton:
+            pos_hint: {'right':1, 'top':1}
+
+            icon: "close-circle"
+
+            on_press: root.close_screen(*args)

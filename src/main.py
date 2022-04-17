@@ -24,6 +24,7 @@ from views.py.activity import ActivityScreen
 from views.py.timetable.day_tile import DayTile
 from views.py.timetable.lesson_tile import LessonTile
 from views.py.timetable.timetable import Timetable
+from views.py.image_screen import ImageScreen
 
 import globals
 from handlers import display_homework_tiles, display_activity, display_timetable, display_homework_details, settings
@@ -43,6 +44,7 @@ Builder.load_file('views/kv/homework.kv')
 Builder.load_file('views/kv/homework_details.kv')
 Builder.load_file('views/kv/attachment_tile.kv')
 Builder.load_file('views/kv/homework_sorter.kv')
+Builder.load_file('views/kv/image_screen.kv')
 
 #Timetable
 Builder.load_file('views/kv/timetable/day_tile.kv')
@@ -100,6 +102,7 @@ class MainApp(MDApp):
         globals.loading_circle_screen = LoadingCircleScreen(name="LoadingCircleScreen")
 
         globals.homework_details_screen = HomeworkDetailsScreen(name="HomeworkDetailsScreen")
+        globals.view_image_screen = ImageScreen(name="ImageScreen")
 
         globals.screen.ids.homework_screen_manager.add_widget(HomeworkScreen(name='HomeworkScreen'))
 
@@ -110,7 +113,8 @@ class MainApp(MDApp):
         globals.screen_manager.add_widget(globals.licenses_screen)
         globals.screen_manager.add_widget(globals.appearance_screen)
         globals.screen_manager.add_widget(globals.splash_screen)
-        
+        globals.screen_manager.add_widget(globals.view_image_screen)
+
         globals.screen.ids.homework_screen_manager.add_widget(globals.homework_details_screen)
         globals.screen.ids.homework_screen_manager.add_widget(globals.loading_circle_screen)
 

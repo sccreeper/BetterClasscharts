@@ -5,8 +5,8 @@ from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.toast import toast
 from kivymd.uix.gridlayout import MDGridLayout
 
+from handlers import open_url, open_image
 import globals
-from handlers import open_url
 
 class HomeworkDetailsView(MDBoxLayout):
     hw_title = StringProperty()
@@ -21,7 +21,7 @@ class HomeworkDetailsView(MDBoxLayout):
     desc_size_hint = ListProperty()
 
     attachment_data = ListProperty()
-    hw_data = ListProperty()
+    hw_description = StringProperty()
 
     def hand_in_hw(self, checkbox, value):
         
@@ -34,3 +34,11 @@ class HomeworkDetailsView(MDBoxLayout):
             toast("Homework handed in!")
         else:
             toast("There was an error.")
+    
+    def open_link(self, _instance, url):
+        
+        match url[0:3]:
+            case "url":
+                open_url.launch_webbrowser(url[3:-1])
+            case "img":
+                open_image.open_image(url)

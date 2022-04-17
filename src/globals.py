@@ -26,6 +26,8 @@ loading_circle_screen = None
 
 app_object = None
 
+view_image_screen = None
+
 CURRENT_TAB = "activity"
 
 #Config

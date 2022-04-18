@@ -13,11 +13,12 @@ from kivy.clock import Clock
 
 
 from views.py.timetable.lesson_tile import LessonTile
-from util import get_selected_background_colour, SHORT_DAY
+from util import get_selected_background_colour, SHORT_DAY, set_window_title
 
 def display_timetable(*args):
     globals.CURRENT_TAB = "timetable"
     globals.screen.ids.toolbar.title = "Timetable"
+    set_window_title("BetterClasscharts - Timetable")
 
     #Update on top row
 

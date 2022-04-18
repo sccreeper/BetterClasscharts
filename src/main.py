@@ -82,6 +82,8 @@ class LoadingCircleScreen(Screen):
     pass
 
 class MainApp(MDApp):
+    title = "BetterClasscharts"
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -205,6 +207,18 @@ class MainApp(MDApp):
     def show_main_screen(self, *args):
         globals.screen_manager.transition = SlideTransition(direction="right", duration=0.25)
         globals.screen_manager.current = "MainScreen"
+
+        #Update title
+
+        match globals.CURRENT_TAB:
+            case "activity":
+                util.set_window_title("BetterClasscharts - Activity")
+            case "homework":
+                util.set_window_title("BetterClasscharts - Homework")
+            case "timetable":
+                util.set_window_title("BetterClasscharts - Timetable")
+            case _:
+                util.set_window_title("BetterClasscharts")
     
     #Actual login and start, called after UI has loaded.
     def client_login(self, *args):
@@ -230,6 +244,14 @@ class MainApp(MDApp):
                 return True
         
         return False
+
+    #See: https://github.com/kivy/kivy/pull/1732. Why wasn't this added??
+    def set_title(self, title): 
+        self.title = title
+        from kivy.base import EventLoop
+        window = EventLoop.window
+        if window:
+            window.set_title(self.title)
 
 
     #self.screen.ids.homework_scroll.rows += 1

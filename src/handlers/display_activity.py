@@ -5,6 +5,7 @@ from kivymd.uix.button import MDFlatButton
 
 import globals
 from datetime import datetime, date
+from util import set_window_title
 
 TIMES_SWITCHED = 0
 
@@ -12,6 +13,7 @@ def display_activity(*args):
 
     globals.CURRENT_TAB = "activity"
     globals.screen.ids.toolbar.title = "Activity"
+    set_window_title("BetterClasscharts - Activity")
 
     activity_data = globals.API_CLIENT.get_activity()
 

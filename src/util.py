@@ -4,6 +4,8 @@ from datetime import date, datetime
 
 from kivymd.color_definitions import colors
 from kivy.utils import get_color_from_hex
+from kivy.base import EventLoop
+from kivy.utils import platform as kivy_platform
 
 import globals
 
@@ -115,3 +117,10 @@ def get_selected_background_colour(is_down):
         return get_color_from_hex(colors[globals.CURRENT_CONFIG["accent_name"]]["900"]) if globals.CURRENT_CONFIG["dark_mode"] else get_color_from_hex(colors[globals.CURRENT_CONFIG["accent_name"]]["500"])
     else:
         return get_color_from_hex(colors["Gray"]["800"]) if globals.CURRENT_CONFIG["dark_mode"] else get_color_from_hex(colors["Gray"]["400"])
+
+#Easily update the window title.
+def set_window_title(title):
+    if kivy_platform == "android" or kivy_platform == "ios": #Yes ios isn't supported but future proofing.
+        return
+    else:
+        globals.app_object.set_title(title)

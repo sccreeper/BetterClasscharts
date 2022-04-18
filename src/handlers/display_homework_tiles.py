@@ -1,6 +1,6 @@
 from datetime import date, datetime
 import functools
-from util import english_date
+from util import english_date, set_window_title
 import time as t
 from threading import Thread
 from functools import partial
@@ -29,6 +29,7 @@ def update_hw(*args):
 
         globals.CURRENT_TAB = "homework"
         globals.screen.ids.toolbar.title = "Homework"
+        set_window_title("BetterClasscharts - Homework")
         
         globals.screen.ids.homework_screen_manager.transition = NoTransition()
         globals.screen.ids.homework_screen_manager.current = "LoadingCircleScreen"

@@ -76,6 +76,8 @@ def change_dark_mode(*args):
 
 def show_settings_screen(*args):
 
+    util.set_window_title("BetterClasscharts - Settings")
+
     #Update information
 
     globals.screen_manager.get_screen("SettingsScreen").student_code = globals.CURRENT_CONFIG['code']

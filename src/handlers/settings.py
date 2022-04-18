@@ -7,6 +7,7 @@ from kivy.logger import Logger
 
 from kivy.uix.screenmanager import SlideTransition, NoTransition
 from kivymd.uix.dialog import MDDialog
+from kivymd.uix.button import MDFlatButton
 
 #System libs
 
@@ -19,7 +20,34 @@ import globals
 
 #Logic
 
+logoutDialog = None
+
 def logout(*args):
+    global logoutDialog
+
+    logoutDialog = MDDialog(
+        title="Are you sure?",
+        buttons=[
+            MDFlatButton(
+                    text="CANCEL",
+                    theme_text_color="Custom",
+                    text_color=globals.app_object.theme_cls.primary_color,
+                    on_release=lambda x: logoutDialog.dismiss(force=True)
+                ),
+            MDFlatButton(
+                    text="LOGOUT",
+                    theme_text_color="Custom",
+                    text_color="F44336",
+                    on_release=lambda x: logout_process()
+                )
+        ]
+    )
+
+    logoutDialog.open()
+
+def logout_process():
+
+    logoutDialog.dismiss(force=True)
 
     Logger.info("Application: Logging out...")
 

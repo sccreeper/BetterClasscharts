@@ -1,7 +1,4 @@
 from html.parser import HTMLParser
-from cssutils import CSSParser
-from cssutils.css import CSSRule
-import cssutils
 
 import globals
 

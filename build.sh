@@ -3,8 +3,8 @@
 LICENSE_FILE="src/res/licenses.txt"
 BUILD_ID_FILE="src/res/build_id.txt"
 
-declare -a LICENSE_URLS=("https://raw.githubusercontent.com/kivy/python-for-android/develop/LICENSE" "https://raw.githubusercontent.com/kivy/pyjnius/master/LICENSE" "https://raw.githubusercontent.com/kivy/kivy/master/LICENSE" "https://raw.githubusercontent.com/kivymd/KivyMD/master/LICENSE" "https://raw.githubusercontent.com/psf/requests/main/LICENSE" "https://raw.githubusercontent.com/kvesteri/validators/master/LICENSE" "https://raw.githubusercontent.com/python/cpython/main/LICENSE")
-declare -a LICENSE_NAMES=("Python For Android" "pyjnius" "Kivy" "KivyMD" "requests" "Validators" "Python")
+declare -a LICENSE_URLS=("https://raw.githubusercontent.com/kivy/python-for-android/develop/LICENSE" "https://raw.githubusercontent.com/kivy/pyjnius/master/LICENSE" "https://raw.githubusercontent.com/kivy/kivy/master/LICENSE" "https://raw.githubusercontent.com/kivymd/KivyMD/master/LICENSE" "https://raw.githubusercontent.com/psf/requests/main/LICENSE" "https://raw.githubusercontent.com/python/cpython/main/LICENSE")
+declare -a LICENSE_NAMES=("Python For Android" "pyjnius" "Kivy" "KivyMD" "requests" "Python")
 
 
 echo -------------------

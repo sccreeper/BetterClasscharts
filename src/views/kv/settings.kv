@@ -73,6 +73,14 @@
                             icon: "shape-outline"
                     
                     OneLineIconListItem:
+                        text: "Developer settings"
+
+                        on_release: root.show_dev_settings(*args)
+
+                        IconLeftWidget:
+                            icon: "xml"
+                    
+                    OneLineIconListItem:
                         text: "About"
 
                         on_release: root.about_screen(*args)

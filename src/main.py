@@ -1,10 +1,8 @@
-import os
-#os.environ["KCFG_KIVY_LOG_LEVEL"] = "debug"
-
 from kivy.lang import Builder
 from kivy.uix.screenmanager import NoTransition, Screen, ScreenManager, SlideTransition
 from kivymd.uix.label import MDLabel
 from kivymd.app import MDApp
+from kivymd.utils.fpsmonitor import FpsMonitor
 
 from kivy.core.window import Window
 from kivy.utils import platform
@@ -25,6 +23,7 @@ from views.py.timetable.day_tile import DayTile
 from views.py.timetable.lesson_tile import LessonTile
 from views.py.timetable.timetable import Timetable
 from views.py.image_screen import ImageScreen
+from views.py.dev_screen import DevScreen
 
 import globals
 from handlers import display_homework_tiles, display_activity, display_timetable, display_homework_details, settings
@@ -59,6 +58,7 @@ Builder.load_file('views/kv/main.kv')
 Builder.load_file('views/kv/settings.kv')
 Builder.load_file('views/kv/about.kv')
 Builder.load_file('views/kv/appearance.kv')
+Builder.load_file('views/kv/dev.kv')
 
 Builder.load_file('views/kv/splash_screen.kv')
 
@@ -93,20 +93,32 @@ class MainApp(MDApp):
         
         globals.screen_manager = ScreenManager(transition=NoTransition())
 
+        #Main Screens
+
         globals.screen = MainScreen(name="MainScreen")
         globals.login_screen = LoginScreen(name="LoginScreen")
+        
+        #Settings
+
         globals.settings_screen = SettingsScreen(name="SettingsScreen")
         globals.about_screen = AboutScreen(name="AboutScreen")
         globals.licenses_screen = LicensesScreen(name="LicensesScreen")
         globals.appearance_screen = AppearanceScreen(name="AppearanceScreen")
+        globals.dev_screen = DevScreen(name="DevScreen")
+
+        #Misc
 
         globals.splash_screen = SplashScreen(name="SplashScreen")
         globals.loading_circle_screen = LoadingCircleScreen(name="LoadingCircleScreen")
+        
+        #Homework
 
         globals.homework_details_screen = HomeworkDetailsScreen(name="HomeworkDetailsScreen")
         globals.view_image_screen = ImageScreen(name="ImageScreen")
 
         globals.screen.ids.homework_screen_manager.add_widget(HomeworkScreen(name='HomeworkScreen'))
+
+        #Add to screen manager
 
         globals.screen_manager.add_widget(globals.screen)
         globals.screen_manager.add_widget(globals.login_screen)
@@ -116,6 +128,7 @@ class MainApp(MDApp):
         globals.screen_manager.add_widget(globals.appearance_screen)
         globals.screen_manager.add_widget(globals.splash_screen)
         globals.screen_manager.add_widget(globals.view_image_screen)
+        globals.screen_manager.add_widget(globals.dev_screen)
 
         globals.screen.ids.homework_screen_manager.add_widget(globals.homework_details_screen)
         globals.screen.ids.homework_screen_manager.add_widget(globals.loading_circle_screen)
@@ -131,7 +144,6 @@ class MainApp(MDApp):
 
 
     def on_start(self):
-        self.fps_monitor_start()
 
         #Config
         globals.CONFIG_PATH = self.user_data_dir
@@ -139,6 +151,8 @@ class MainApp(MDApp):
         #Logging in + config
         
         Logger.info("Application: Logging in...")
+
+        #TODO: REFACTOR THIS AND ADD CONFIG VERSIONING!
 
         #Check to see if config exists, if not, create new.
         if not os.path.exists(os.path.join(globals.CONFIG_PATH, "config.json")):
@@ -150,7 +164,6 @@ class MainApp(MDApp):
 
             globals.CURRENT_CONFIG = json.loads(util.read_file(os.path.join(globals.CONFIG_PATH, "config.json")))
         
-        #
         if (
             os.path.exists(os.path.join(globals.CONFIG_PATH, "config.json")) 
             and                                                                                              #config exists but not set up
@@ -176,6 +189,12 @@ class MainApp(MDApp):
             if not "accent_name" in globals.CURRENT_CONFIG and not "accent_colour" in globals.CURRENT_CONFIG:
                 globals.CURRENT_CONFIG["accent_name"] = "Blue"
                 globals.CURRENT_CONFIG["accent_colour"] = "2962FF"
+
+                util.write_file(os.path.join(globals.CONFIG_PATH, "config.json"), json.dumps(globals.CURRENT_CONFIG))
+
+            if not "dev" in globals.CURRENT_CONFIG:
+                globals.CURRENT_CONFIG["dev"] = {}
+                globals.CURRENT_CONFIG["dev"]["fps_enabled"] = globals.DEFAULT_CONFIG["dev"]["fps_enabled"]
 
                 util.write_file(os.path.join(globals.CONFIG_PATH, "config.json"), json.dumps(globals.CURRENT_CONFIG))
         
@@ -252,6 +271,19 @@ class MainApp(MDApp):
         window = EventLoop.window
         if window:
             window.set_title(self.title)
+    
+
+    def start_fps(self):
+        
+        self.fps_monitor = FpsMonitor()
+
+        Window.add_widget(self.fps_monitor)
+
+        self.fps_monitor.start()
+
+    def stop_fps(self):
+        
+        Window.remove_widget(self.fps_monitor)
 
 
     #self.screen.ids.homework_scroll.rows += 1

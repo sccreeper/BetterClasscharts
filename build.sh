@@ -1,9 +1,17 @@
 #!/bin/bash
 
 LICENSE_FILE="src/res/licenses.txt"
+BUILD_ID_FILE="src/res/build_id.txt"
 
 declare -a LICENSE_URLS=("https://raw.githubusercontent.com/kivy/python-for-android/develop/LICENSE" "https://raw.githubusercontent.com/kivy/pyjnius/master/LICENSE" "https://raw.githubusercontent.com/kivy/kivy/master/LICENSE" "https://raw.githubusercontent.com/kivymd/KivyMD/master/LICENSE" "https://raw.githubusercontent.com/psf/requests/main/LICENSE" "https://raw.githubusercontent.com/kvesteri/validators/master/LICENSE" "https://raw.githubusercontent.com/python/cpython/main/LICENSE")
 declare -a LICENSE_NAMES=("Python For Android" "pyjnius" "Kivy" "KivyMD" "requests" "Validators" "Python")
+
+
+echo -------------------
+echo Build ID: $(git log -n 1 --pretty=format:"%H")
+echo -------------------
+
+echo $(git log -n 1 --pretty=format:"%H") > ${BUILD_ID_FILE}
 
 echo -------------------
 echo Pulling licenses...
@@ -37,19 +45,28 @@ done
 
 echo -e "\nDone!"
 
+
+if [ "$1" == "res" ] 
+then
+
+    echo "Skipping APK build..."
+    echo "Finished"
+    exit
+fi
+
 echo -------------------
 echo Building APK and deploying...
 echo -------------------
 
-if [ "$1" == "debug" ]
+if [ "$1" == "debug" ] 
 then
 
     buildozer android debug deploy run
 
-else
+elif [ "$1" == "release" ] 
+then
 
-    if [ ! -e "uber-apk-signer*.apk" ] 
-    then
+    if [[ ! -e "uber-apk-signer*.apk" ]]; then
 
         echo "Building release APK..."
 
@@ -64,6 +81,10 @@ else
         echo "Unable to find uber-apk-signer!"
         exit
     fi
+
+else
+
+    echo "Invalid option '$1'"
 
 fi
 

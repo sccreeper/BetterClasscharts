@@ -1,0 +1,49 @@
+<DevScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+
+        id: appearance_screen
+
+        MDToolbar:
+            title: "Developer settings"
+            id: settings_toolbar
+
+            type: "top"
+
+            left_action_items: [["arrow-left", lambda x: root.go_back()]]
+        
+        MDBoxLayout:
+
+            padding: [16, 16, 16, 16]
+
+            orientation: 'vertical'
+
+            spacing: 8
+
+            size_hint: 1.0, 1.0
+
+            MDBoxLayout:
+
+                orientation: "horizontal" 
+
+                MDLabel:
+                    text: "Show FPS"
+
+                    font_style: "H6"
+
+                    size_hint_y: 0.1
+                MDSwitch:
+                    active: not root.fps_enabled
+                    id: fps_switch
+                    on_active: root.enable_fps()
+
+            MDBoxLayout:
+
+                orientation: "horizontal"
+
+                MDLabel:
+                    markup: True
+
+                    text: "[ref=root.build_id]Build ID: [u]" + root.build_id + "[/u][/ref]"
+
+                    on_ref_press: root.open_commit()

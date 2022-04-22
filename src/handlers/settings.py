@@ -152,3 +152,15 @@ def show_licenses_screen(*args):
     
     globals.screen_manager.transition = SlideTransition(direction="left", duration=0.25)
     globals.screen_manager.current = "LicensesScreen"
+
+def show_dev_settings():
+
+    #Update info
+
+    
+
+
+    #Transition
+    
+    globals.screen_manager.transition = SlideTransition(direction="left", duration=0.25)
+    globals.screen_manager.current = "DevScreen"

@@ -20,6 +20,7 @@ settings_screen = None
 about_screen = None
 licenses_screen = None
 appearance_screen = None
+dev_screen = None
 
 splash_screen = None
 loading_circle_screen = None
@@ -38,9 +39,12 @@ DEFAULT_CONFIG = {
     "set_up" : False,
     "code" : "",
     "dob" : (0, 0, 0), #D, M, Y
-    "dark_mode": False,
-    "accent_name": "Blue", #See: https://kivymd.readthedocs.io/en/latest/themes/theming/index.html#kivymd.theming.ThemeManager.primary_palette
-    "accent_colour": "2962FF" #Default blue colour, see ACCENT_COLOURS: Dict
+    "dark_mode" : False,
+    "accent_name" : "Blue", #See: https://kivymd.readthedocs.io/en/latest/themes/theming/index.html#kivymd.theming.ThemeManager.primary_palette
+    "accent_colour": "2962FF", #Default blue colour, see ACCENT_COLOURS: Dict
+    "dev" : {
+        "fps_enabled" : False
+    }
 
 }
 

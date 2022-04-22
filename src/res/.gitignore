@@ -1,3 +1,5 @@
-#Licenses are pulled down in build using pull_licenses.py
+#Licenses are pulled down in build using build.sh <res OR debug OR release>
+#Build ID is also included using same process as above.
 
 licenses.txt
+build_id.txt

@@ -1,8 +1,18 @@
 # Better ClassCharts <!-- omit in toc -->
 
 <p align="center">
-  <img width="256" height="256" src="src/res/logo-256.png">
+  <img width="128" height="128" src="src/res/logo-128.png">
 </p>
+
+---
+
+<p align="center">
+
+<img width="287" height="346" style="display: inline" src=".github/screenshots/png/themes.png"/>
+<img width="287" height="346" style="display: inline" src=".github/screenshots/png/darkmode-lightmode.png"/>
+<img width="297" height="346" style="display: inline" src=".github/screenshots/png/timetable.png"/>
+
+<p>
 
 ---
 

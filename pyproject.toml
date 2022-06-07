@@ -8,7 +8,7 @@ license = "GPLv3"
 [tool.poetry.dependencies]
 python = "^3.10"
 kivy = "2.1.0"
-kivymd = {git = "https://github.com/kivymd/KivyMD", rev = "5a5db42ac8b526bc4bebdecf71b1ef33e8e4537b"}
+kivymd = {git = "https://github.com/kivymd/KivyMD.git", rev = "3c12b7bdbeae456f3cfee69d9b40882ed9940363"}
 requests = "2.27.1"
 pyjnius = "1.4.1"
 

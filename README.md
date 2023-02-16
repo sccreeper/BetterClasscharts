@@ -1,3 +1,9 @@
+## Archival note <!-- omit in toc -->
+
+I have decided to stop maintaining this as I no longer have access to a ClassCharts account to test with. As a result I have moved my focus to other projects. If you have found this and want to develop it further, feel free to fork it and start developing it again.
+
+---
+
 # Better ClassCharts <!-- omit in toc -->
 
 <p align="center">
